@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <img src="bus.jpg" alt="logo" height="140" width="150">
+        <div id="logo">
+            <h1>UniTravels</h1>
+            <a href="bus.html">Home</a>
+            <a href="#">AboutUs</a>
+            <a href="#">Contact</a>
+        </div>   
+    </header>
+    <div class="side">
+        <a href="bus.html"><button id="box1">
+            <img src="bus.jpg" alt="" height="100" width="100">
+            <span><b>Bus Travel</b></span>
+        </button></a>
+        <a href="train.html"><button id="box2">
+            <img src="train.jpg" alt="" height="100" width="100">
+            <span><b>Train Travel</b></span>
+        </button></a>
+        <a href="car.html"><button id="box3">
+            <img src="car.jpg" alt="" height="100" width="100">
+            <span><b>Car Travel</b></span>
+        </button></a>
+        <a href="ideaaboutplaces.html"><button id="box4">
+            <img src="idea.jpg" alt="" height="100" width="100">
+            <span><b>Idea of Place</b></span>
+        </button></a>
+    </div>
+    <div id="web">
+        <div class="place">
+            <label for="location">From:</label>
+            <select id="location" required>
+                <option value="">Select Location</option>
+                <option value="Delhi">Delhi</option>
+                <option value="Mumbai">Mumbai</option>
+                <option value="Goa">Goa</option>
+                <option value="Ratlam">Ratlam</option>
+                <option value="Indore">Indore</option>
+            </select>
+            <label for="destination">To:</label>
+            <select id="destination" required>
+                <option value="">Select Location</option>
+                <option value="Delhi">Delhi</option>
+                <option value="Mumbai">Mumbai</option>
+                <option value="Goa">Goa</option>
+                <option value="Ratlam">Ratlam</option>
+                <option value="Indore">Indore</option>
+            </select>
+            <label for="date">Date:</label>
+            <input type="date" id="date">
+        </div>
+        <div class="Search">
+            <button onclick="search()">Search for Buses</button>
+        </div>
+        <p id="loginMessage" style="font-size: xx-large; font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; font-style: italic;"></p>
+    </div>
+    <div id="bavail" style="display: none;">
+        <div id="busavail1" style="display: none;"><!--Indore to Ratlam-->
+            <table>
+                <thead>
+                    <tr>
+                        <th>Bus Name</th>
+                        <th>Departure</th>
+                        <th>Duration</th>
+                        <th>Arrival</th>
+                        <th>Fare</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Chartered Bus <b>{Volvo AC Seater}</b></td>
+                        <td>06:00 <b>{AICTSL Campus}</b></td>
+                        <td>03h 00m</td>
+                        <td>09:00 <b>{Ratlam Branch}</b></td>
+                        <td>INR 250</td>
+                    </tr>
+                    <tr>
+                        <td>Krishna Travels <b>{NON AC Seater}</b></td>
+                        <td>08:30 <b>{Gangwal Bus Stand}</b></td>
+                        <td>03h 10m</td>
+                        <td>11:40 <b>{Ratlam Bus Stand}</b></td>
+                        <td>INR 210</td>
+                    </tr>
+                    <tr>
+                        <td>Gagan Travels <b>{NON AC Seater}</b></td>
+                        <td>19:00 <b>{Gangwal Bus Stand}</b></td>
+                        <td>03h 00m</td>
+                        <td>22:00 <b>{Ratlam ByPass}</b></td>
+                        <td>INR 250</td>
+                    </tr>
+                    <tr>
+                        <td>Ashok Travels <b>{NON AC Seater/Sleeper}</b></td>
+                        <td>23:55 <b>{Chhotigwa}</b></td>
+                        <td>03h 30m</td>
+                        <td>03:25 <b>{Near City Center}</b></td>
+                        <td>INR 250</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="busavail2" style="display: none;"><!--Delhi to Mumbai-->
+            <table>
+                <thead>
+                    <tr>
+                        <th>Bus Name</th>
+                        <th>Departure</th>
+                        <th>Duration</th>
+                        <th>Arrival</th>
+                        <th>Fare</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Safar Express <b>{AC Sleeper}</b></td>
+                        <td>13:00 <b>{IBST Kashmiri Gate}</b></td>
+                        <td>24h 15m</td>
+                        <td>13:15 <b>{Anderi East Bus Stop}</b></td>
+                        <td>INR 2899</td>
+                    </tr>
+                    <tr>
+                        <td>Raj Travels <b>{NON AC Seater}</b></td>
+                        <td>19:00 <b>{Tis Hazari}</b></td>
+                        <td>38h 10m</td>
+                        <td>09:10 <b>{Borivalli East}</b></td>
+                        <td>INR 3599</td>
+                    </tr>
+                    <tr>
+                        <td>Hans Travels <b>{AC Seater}</b></td>
+                        <td>19:30 <b>{Tis Hazari}</b></td>
+                        <td>36h 35m</td>
+                        <td>08:05 <b>{Dahisar}</b></td>
+                        <td>INR 2800</td>
+                    </tr>
+                    <tr>
+                        <td>Hans Travels <b>{NON AC Seater/Sleeper}</b></td>
+                        <td>20:25 <b>{Tis Hazari}</b></td>
+                        <td>35h 10m</td>
+                        <td>07:35 <b>{Dahisar}</b></td>
+                        <td>INR 2800</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="busavail3" style="display: none;"><!--Delhi to Goa-->
+            <table>
+                <thead>
+                    <tr>
+                        <th>Bus Name</th>
+                        <th>Departure</th>
+                        <th>Duration</th>
+                        <th>Arrival</th>
+                        <th>Fare</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Hans Travels <b>{AC Sleeper}</b></td>
+                        <td>19:30 <b>{Tis Hazari}</b></td>
+                        <td>37h 10m</td>
+                        <td>08:40 <b>{Panjim}</b></td>
+                        <td>INR 4000</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="busavail4" style="display: none;"><!--Delhi to Indore-->
+            <table>
+                <thead>
+                    <tr>
+                        <th>Bus Name</th>
+                        <th>Departure</th>
+                        <th>Duration</th>
+                        <th>Arrival</th>
+                        <th>Fare</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Raj Travels <b>{Volvo 9600 AC Sleeper}</b></td>
+                        <td>19:15 <b>{Tis Hazari}</b></td>
+                        <td>14h 15m</td>
+                        <td>09:30 <b>{Arvindo Hospital}</b></td>
+                        <td>INR 1899</td>
+                    </tr>
+                    <tr>
+                        <td>Gajraj Travels <b>{AC Sleeper}</b></td>
+                        <td>20:00 <b>{Morigate}</b></td>
+                        <td>14h 15m</td>
+                        <td>10:15 <b>{Teen Imli Square}</b></td>
+                        <td>INR 1500</td>
+                    </tr>
+                    <tr>
+                        <td>Gajraj bus service <b>{AC Seater/Sleeper}</b></td>
+                        <td>20:15 <b>{ISBT Kashmiri Gate}</b></td>
+                        <td>14h 15m</td>
+                        <td>10:30 <b>{Arvindo Hospital}</b></td>
+                        <td>INR 1100</td>
+                    </tr>
+                    <tr>
+                        <td>Raj Kalpana Travels <b>{AC Sleeper}</b></td>
+                        <td>21:30 <b>{ISBT Kashmiri Gate}</b></td>
+                        <td>16h 00m</td>
+                        <td>13:30 <b>{Bus Stand}</b></td>
+                        <td>INR 2999</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="busavail5" style="display: none;"><!--Delhi to Ratlam-->
+            <table>
+                <thead>
+                    <tr>
+                        <th>Bus Name</th>
+                        <th>Departure</th>
+                        <th>Duration</th>
+                        <th>Arrival</th>
+                        <th>Fare</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Ashok Travels <b>{NON AC Sleeper}</b></td>
+                        <td>16:05 <b>{Gokhle Market}</b></td>
+                        <td>17h 25m</td>
+                        <td>09:30 <b>{Bus Stand Ratlam}</b></td>
+                        <td>INR 1200</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="busavail6" style="display: none;"><!--Ratlam to Delhi-->
+            <table>
+                <thead>
+                    <tr>
+                        <th>Bus Name</th>
+                        <th>Departure</th>
+                        <th>Duration</th>
+                        <th>Arrival</th>
+                        <th>Fare</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Ashok Travels <b>{NON AC Sleeper}</b></td>
+                        <td>17:02 <b>{Raj tower Ratlam}</b></td>
+                        <td>17h 38m</td>
+                        <td>10:40 <b>{Gokhle market}</b></td>
+                        <td>INR 1200</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="busavail7" style="display: none;"><!--Ratlam to Indore-->
+            <table>
+                <thead>
+                    <tr>
+                        <th>Bus Name</th>
+                        <th>Departure</th>
+                        <th>Duration</th>
+                        <th>Arrival</th>
+                        <th>Fare</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Chartered Bus <b>{AC Seater}</b></td>
+                        <td>07:00 <b>{Fuhara Chowk}</b></td>
+                        <td>03h 00m</td>
+                        <td>09:30 <b>{AICTSL Campus}</b></td>
+                        <td>INR 250</td>
+                    </tr>
+                    <tr>
+                        <td>Mahalaxmi Travels <b>{NON AC Seater}</b></td>
+                        <td>08:30 <b>{Bus Stand Ratlam}</b></td>
+                        <td>04h 30m</td>
+                        <td>13:00 <b>{Gangwal Bus Stand}</b></td>
+                        <td>INR 160</td>
+                    </tr>
+                    <tr>
+                        <td>Krishna Travels <b>{NON AC Seater}</b></td>
+                        <td>20:30 <b>{Ratlam Bus Stand}</b></td>
+                        <td>02h 40m</td>
+                        <td>23:30 <b>{Gangwal Bus Stand}</b></td>
+                        <td>INR 210</td>
+                    </tr>
+                    <tr>
+                        <td>Ashok Travels <b>{NON AC Seater/Sleeper}</b></td>
+                        <td>21:30 <b>{Near city center}</b></td>
+                        <td>04h 00m</td>
+                        <td>02:00 <b>{Chhotigwaltoli}</b></td>
+                        <td>INR 350</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="busavail8" style="display: none;"><!--Mumbai to Delhi-->
+            <table>
+                <thead>
+                    <tr>
+                        <th>Bus Name</th>
+                        <th>Departure</th>
+                        <th>Duration</th>
+                        <th>Arrival</th>
+                        <th>Fare</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Safar Express <b>{AC Sleeper}</b></td>
+                        <td>13:00 <b>{Chunabhatti}</b></td>
+                        <td>25h 45m</td>
+                        <td>14:45 <b>{Dhaula Kuan}</b></td>
+                        <td>INR 3899</td>
+                    </tr>
+                    <tr>
+                        <td>Rajat Travels <b>{AC Sleeper}</b></td>
+                        <td>15:00 <b>{Vashi}</b></td>
+                        <td>35h 00m</td>
+                        <td>02:00 <b>{Purani Delhi}</b></td>
+                        <td>INR 3500</td>
+                    </tr>
+                    <tr>
+                        <td>Ashok Travels <b>{AC Seater}</b></td>
+                        <td>17:00 <b>{Borivali West}</b></td>
+                        <td>39h 25m</td>
+                        <td>08:25 <b>{Khanna market}</b></td>
+                        <td>INR 5500</td>
+                    </tr>
+                    <tr>
+                        <td>Raj Travels <b>{Volvo 9600 AC Sleeper}</b></td>
+                        <td>19:30 <b>{Borivali East}</b></td>
+                        <td>38h 25m</td>
+                        <td>09:55 <b>{Tis Hazari}</b></td>
+                        <td>INR 3599</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="busavail9" style="display: none;"><!--Mumbai to Goa-->
+            <table>
+                <thead>
+                    <tr>
+                        <th>Bus Name</th>
+                        <th>Departure</th>
+                        <th>Duration</th>
+                        <th>Arrival</th>
+                        <th>Fare</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>IntrCity SmartBus <b>{AC Sleeper}</b></td>
+                        <td>16:00 <b>{Borivali East}</b></td>
+                        <td>16h 20m</td>
+                        <td>08:20 <b>{Mapusa}</b></td>
+                        <td>INR 1500</td>
+                    </tr>
+                    <tr>
+                        <td>IntrCity SmartBus <b>{AC Sleeper}</b></td>
+                        <td>17:15 <b>{Borivali West}</b></td>
+                        <td>15h 55m</td>
+                        <td>09:10 <b>{Mapusa}</b></td>
+                        <td>INR 1500</td>
+                    </tr>
+                    <tr>
+                        <td>IntrCity SmartBus <b>{AC Sleeper}</b></td>
+                        <td>19:35 <b>{Sion}</b></td>
+                        <td>16h 20m</td>
+                        <td>08:20 <b>{Mapusa}</b></td>
+                        <td>INR 1500</td>
+                    </tr>
+                    <tr>
+                        <td>Zingbus Plus <b>{AC Sleeper}</b></td>
+                        <td>20:00 <b>{Borivali West}</b></td>
+                        <td>18h 00m</td>
+                        <td>14:00 <b>{Mapusa}</b></td>
+                        <td>INR 1000</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="busavail10" style="display: none;"><!--Mumbai to Indore-->
+            <table>
+                <thead>
+                    <tr>
+                        <th>Bus Name</th>
+                        <th>Departure</th>
+                        <th>Duration</th>
+                        <th>Arrival</th>
+                        <th>Fare</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Chouhan Travels <b>{Benz NON AC Sleeper}</b></td>
+                        <td>18:35 <b>{Borivali East}</b></td>
+                        <td>13h 30m</td>
+                        <td>08:05 <b>{Teen Imli Square}</b></td>
+                        <td>INR 1100</td>
+                    </tr>
+                    <tr>
+                        <td>Raj Travels <b>{Benz AC Sleeper}</b></td>
+                        <td>20:45 <b>{Thane West}</b></td>
+                        <td>12h 00m</td>
+                        <td>08:45 <b>{Rajendra Nagar}</b></td>
+                        <td>INR 1300</td>
+                    </tr>
+                    <tr>
+                        <td>IntrCity SmartBus <b>{AC Sleeper}</b></td>
+                        <td>21:30 <b>{Thane West}</b></td>
+                        <td>11h 55m</td>
+                        <td>09:25 <b>{Rajendra Nagar}</b></td>
+                        <td>INR 1950</td>
+                    </tr>
+                    <tr>
+                        <td>Raj Travels <b>{Volvo 9600 AC Sleeper}</b></td>
+                        <td>22:15 <b>{Thane West}</b></td>
+                        <td>11h 10m</td>
+                        <td>09:25 <b>{Rajendra Nagar}</b></td>
+                        <td>INR 1700</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="busavail11" style="display: none;"><!--Indore to Delhi-->
+            <table>
+                <thead>
+                    <tr>
+                        <th>Bus Name</th>
+                        <th>Departure</th>
+                        <th>Duration</th>
+                        <th>Arrival</th>
+                        <th>Fare</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Ashok Travels <b>{Volvo 9600 AC Sleeper}</b></td>
+                        <td>13:30 <b>{Teen Imli Square}</b></td>
+                        <td>18h 55m</td>
+                        <td>08:25 <b>{Khanna market}</b></td>
+                        <td>INR 1800</td>
+                    </tr>
+                    <tr>
+                        <td>Gajraj Travels <b>{AC Sleeper}</b></td>
+                        <td>16:30 <b>{Teen Imli Square}</b></td>
+                        <td>15h 45m</td>
+                        <td>08:15 <b>{Morigate}</b></td>
+                        <td>INR 1700</td>
+                    </tr>
+                    <tr>
+                        <td>Bluecity Bus <b>{AC Sleeper}</b></td>
+                        <td>17:00 <b>{Teen Imli Square}</b></td>
+                        <td>15h 30m</td>
+                        <td>08:30 <b>{Mahipalpur}</b></td>
+                        <td>INR 1700</td>
+                    </tr>
+                    <tr>
+                        <td>Raj Travels <b>{Volvo 9600 AC Sleeper}</b></td>
+                        <td>17:45 <b>{Rajiv Gandhi Square}</b></td>
+                        <td>13h 55m</td>
+                        <td>07:40 <b>{Rajiv Chowk}</b></td>
+                        <td>INR 1900</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="busavail12" style="display: none;"><!--Indore to Mumbai-->
+            <table>
+                <thead>
+                    <tr>
+                        <th>Bus Name</th>
+                        <th>Departure</th>
+                        <th>Duration</th>
+                        <th>Arrival</th>
+                        <th>Fare</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Raj Travels <b>{Bharat Benz AC Sleeper}</b></td>
+                        <td>19:15 <b>{Rajiv Gandhi Square}</b></td>
+                        <td>11h 30m</td>
+                        <td>07:40 <b>{Thane West}</b></td>
+                        <td>INR 1300</td>
+                    </tr>
+                    <tr>
+                        <td>Raj Travels <b>{Bharat Benz AC Sleeper}</b></td>
+                        <td>20:15 <b>{Rajiv Gandhi Square}</b></td>
+                        <td>11h 40m</td>
+                        <td>07:55 <b>{Thane West}</b></td>
+                        <td>INR 1600</td>
+                    </tr>
+                    <tr>
+                        <td>Hans Travels <b>{Volvo 9600 AC Sleeper}</b></td>
+                        <td>21:00 <b>{Pipliyahan Square}</b></td>
+                        <td>13h 45m</td>
+                        <td>10:45 <b>{Borivali East}</b></td>
+                        <td>INR 1600</td>
+                    </tr>
+                    <tr>
+                        <td>IntrCity SmartBus <b>{AC Sleeper}</b></td>
+                        <td>22:15 <b>{Rajendra Nagar}</b></td>
+                        <td>11h 45m</td>
+                        <td>10:00 <b>{Thane West}</b></td>
+                        <td>INR 1950</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="busavail13" style="display: none;"><!--Indore to Goa-->
+            <table>
+                <thead>
+                    <tr>
+                        <th>Bus Name</th>
+                        <th>Departure</th>
+                        <th>Duration</th>
+                        <th>Arrival</th>
+                        <th>Fare</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Humsafar Travels <b>{AC Sleeper/Seater}</b></td>
+                        <td>05:00 <b>{Teen Imli Square}</b></td>
+                        <td>28h 00m</td>
+                        <td>09:00 <b>{Kankavli}</b></td>
+                        <td>INR 3250</td>
+                    </tr>
+                    <tr>
+                        <td>Hans Travels <b>{AC Sleeper}</b></td>
+                        <td>11:00 <b>{Pipliyahan Square}</b></td>
+                        <td>23h 39m</td>
+                        <td>10:39 <b>{Kankavli}</b></td>
+                        <td>INR 2000</td>
+                    </tr>
+                    <tr>
+                        <td>Humsafar Travels <b>{AC Sleeper}</b></td>
+                        <td>23:00 <b>{Navlakha}</b></td>
+                        <td>34h 30m</td>
+                        <td>09:30 <b>{Kankavli}</b></td>
+                        <td>INR 3050</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="busavail14" style="display: none;"><!--Goa to Indore-->
+            <table>
+                <thead>
+                    <tr>
+                        <th>Bus Name</th>
+                        <th>Departure</th>
+                        <th>Duration</th>
+                        <th>Arrival</th>
+                        <th>Fare</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Hans Travels <b>{AC Sleeper}</b></td>
+                        <td>12:30 <b>{Panjim}</b></td>
+                        <td>24h 00m</td>
+                        <td>12:30 <b>{Pipliyahan Square}</b></td>
+                        <td>INR 2200</td>
+                    </tr>
+                    <tr>
+                        <td>Humsafar Travels <b>{AC Sleeper/Seater}</b></td>
+                        <td>17:30 <b>{Madgaon}</b></td>
+                        <td>29h 05m</td>
+                        <td>22:35 <b>{Teen Imli Square}</b></td>
+                        <td>INR 2850</td>
+                    </tr>
+                    <tr>
+                        <td>Humsafar Travels <b>{Bharat Benz AC Sleeper}</b></td>
+                        <td>19:00 <b>{Mapusa}</b></td>
+                        <td>27h 30m</td>
+                        <td>22:30 <b>{Navlakha}</b></td>
+                        <td>INR 5050</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="busavail15" style="display: none;"><!--Goa to Mumbai-->
+            <table>
+                <thead>
+                    <tr>
+                        <th>Bus Name</th>
+                        <th>Departure</th>
+                        <th>Duration</th>
+                        <th>Arrival</th>
+                        <th>Fare</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Atmaram Travels <b>{AC Sleeper}</b></td>
+                        <td>14:00 <b>{Mapusa}</b></td>
+                        <td>15h 00m</td>
+                        <td>05:00 <b>{Borivali East}</b></td>
+                        <td>INR 1050</td>
+                    </tr>
+                    <tr>
+                        <td>Zingbus Plus <b>{Bharat Benz AC Sleeper}</b></td>
+                        <td>18:10 <b>{Mapusa}</b></td>
+                        <td>15h 50m</td>
+                        <td>10:00 <b>{Borivali East}</b></td>
+                        <td>INR 1000</td>
+                    </tr>
+                    <tr>
+                        <td>IntrCity SmartBus <b>{AC Sleeper}</b></td>
+                        <td>19:30 <b>{Mapusa}</b></td>
+                        <td>14h 10m</td>
+                        <td>09:40 <b>{Borivali East}</b></td>
+                        <td>INR 1500</td>
+                    </tr>
+                    <tr>
+                        <td>Zingbus Plus <b>{AC Sleeper}</b></td>
+                        <td>20:40 <b>{Mapusa}</b></td>
+                        <td>15h 40m</td>
+                        <td>12:20 <b>{Borivali East}</b></td>
+                        <td>INR 1000</td>
+                    </tr>
+                </tbody>
+            </table>
+            </div>
+        </div>
+    </div>
+    <script>
+        function search() {
+            const location = document.getElementById('location').value;
+            const destination = document.getElementById('destination').value;
+            const date = document.getElementById('date').value;
+            const loginMsg = document.getElementById('loginMessage');
+
+            if (!location || !destination){
+                loginMsg.textContent = "Select Location";
+                return;
+            }else if (!date){
+                loginMsg.textContent = "Select Date";
+                return;
+            }else if (location == destination ){
+                loginMsg.textContent = "Select Different Location";
+                return;
+            }else if (location=='Indore' && destination=='Ratlam'){
+                document.getElementById('web').style.display = 'none';
+                document.getElementById('bavail').style.display = 'block';
+                document.getElementById('busavail1').style.display = 'block';
+            }else if (location=='Delhi' && destination=='Mumbai'){
+                document.getElementById('web').style.display = 'none';
+                document.getElementById('bavail').style.display = 'block';
+                document.getElementById('busavail2').style.display = 'block';
+            }else if (location=='Delhi' && destination=='Goa'){
+                document.getElementById('web').style.display = 'none';
+                document.getElementById('bavail').style.display = 'block';
+                document.getElementById('busavail3').style.display = 'block';
+            }else if (location=='Delhi' && destination=='Indore'){
+                document.getElementById('web').style.display = 'none';
+                document.getElementById('bavail').style.display = 'block';
+                document.getElementById('busavail4').style.display = 'block';
+            }else if (location=='Delhi' && destination=='Ratlam'){
+                document.getElementById('web').style.display = 'none';
+                document.getElementById('bavail').style.display = 'block';
+                document.getElementById('busavail5').style.display = 'block';
+            }else if (location=='Ratlam' && destination=='Delhi'){
+                document.getElementById('web').style.display = 'none';
+                document.getElementById('bavail').style.display = 'block';
+                document.getElementById('busavail6').style.display = 'block';
+            }else if (location=='Ratlam' && destination=='Indore'){
+                document.getElementById('web').style.display = 'none';
+                document.getElementById('bavail').style.display = 'block';
+                document.getElementById('busavail7').style.display = 'block';
+            }else if (location=='Mumbai' && destination=='Delhi'){
+                document.getElementById('web').style.display = 'none';
+                document.getElementById('bavail').style.display = 'block';
+                document.getElementById('busavail8').style.display = 'block';
+            }else if (location=='Mumbai' && destination=='Goa'){
+                document.getElementById('web').style.display = 'none';
+                document.getElementById('bavail').style.display = 'block';
+                document.getElementById('busavail9').style.display = 'block';
+            }else if (location=='Mumbai' && destination=='Indore'){
+                document.getElementById('web').style.display = 'none';
+                document.getElementById('bavail').style.display = 'block';
+                document.getElementById('busavail10').style.display = 'block';
+            }else if (location=='Indore' && destination=='Delhi'){
+                document.getElementById('web').style.display = 'none';
+                document.getElementById('bavail').style.display = 'block';
+                document.getElementById('busavail11').style.display = 'block';
+            }else if (location=='Indore' && destination=='Mumbai'){
+                document.getElementById('web').style.display = 'none';
+                document.getElementById('bavail').style.display = 'block';
+                document.getElementById('busavail12').style.display = 'block';
+            }else if (location=='Indore' && destination=='Goa'){
+                document.getElementById('web').style.display = 'none';
+                document.getElementById('bavail').style.display = 'block';
+                document.getElementById('busavail13').style.display = 'block';
+            }else if (location=='Goa' && destination=='Indore'){
+                document.getElementById('web').style.display = 'none';
+                document.getElementById('bavail').style.display = 'block';
+                document.getElementById('busavail14').style.display = 'block';
+            }else if (location=='Goa' && destination=='Mumbai'){
+                document.getElementById('web').style.display = 'none';
+                document.getElementById('bavail').style.display = 'block';
+                document.getElementById('busavail15').style.display = 'block';
+            }else {
+                loginMsg.textContent = "Sorry, No Bus Are Available In This Route";
+            }
+        }
+    </script>
+</body>
+</html>

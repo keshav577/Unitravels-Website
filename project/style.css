@@ -1,0 +1,271 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    background-color: #f0f4f8;
+    color: #333;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    background-color: #0044cc;
+    color: #fff;
+}
+
+img{
+    border-radius: 10px;
+}
+header img {
+    margin-right: 20px;
+    border-radius: 10px;
+}
+
+#logo {
+    display: flex;
+    flex-direction: column;
+}
+
+#logo h1 {
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+#logo a {
+    color: #fff;
+    margin-right: 15px;
+    text-decoration: none;
+    font-size: 1.2em;
+}
+
+#logo a:hover {
+    text-decoration: underline;
+}
+
+.side {
+    display: flex;
+    justify-content: space-around;
+    background-color: #e0e7ff;
+    padding: 20px;
+    margin: 20px;
+}
+
+button {
+    background-color: #0066ff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1.1em;
+    border-radius: 10px;
+    cursor: pointer;
+    
+}
+
+button:hover {
+    background-color: #0052cc;
+}
+
+#web {
+    background-color: #fff;
+    margin: 50px auto;
+    width: 50%;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#web .Search{
+    text-align: center;
+}
+
+#web1 {
+    background-color: #fff;
+    margin: 50px auto;
+    width: 35%;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#web1 .Search{
+    text-align: center;
+}
+
+.place {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+label {
+    font-size: 1.2em;
+    margin-right: 10px;
+}
+
+select, input[type="date"] {
+    padding: 10px;
+    font-size: 1em;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+}
+
+.Search button {
+    background-color: #00cc66;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.2em;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    
+}
+
+.Search button:hover {
+    background-color: #00994d;
+}
+
+#bavail ,#tavail,#cavail{
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    padding: 20px;
+    margin: 50px auto;
+    margin-bottom: 20px;
+    width: 90%;
+}
+
+#bus1, #bus2, #bus3, #bus4 {
+    background-color: #e0e7ff;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    padding: 15px;
+    display: flex;
+    justify-content: space-around;
+}
+.about{
+    background-color: #e0e7ff;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    padding: 15px 2px 15px 20px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.busname1, .starttime, .timetaken, .endtime, .price,.trainname1,.trainno{
+    display: inline-block;
+    width: 20%;
+    text-align: center;
+    padding: 5px 2px 5px ;
+}
+#train1, #train2, #train3, #train4 {
+    background-color: #e0e7ff;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    padding: 15px;
+    display: flex;
+    justify-content: space-around;
+} 
+
+#bus1:hover, #bus2:hover, #bus3:hover, #bus4:hover {
+    box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.2);
+}
+
+#loginMessage {
+    text-align: center;
+    color: red;
+    font-size: 1.5em;
+    margin-top: 20px;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 18px;
+    text-align: left;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+}
+
+th {
+    background-color: #f0f8ff;
+    color: #333;
+    font-weight: bold;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+}
+
+td:first-child {
+    font-weight: bold;
+    color: #2c3e50;
+}
+#Iavail {
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    padding: 20px;
+    margin: 2px auto;
+    width: 41%;
+}
+
+#IA1,#IA2 {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.main1{
+    display: grid;
+    grid-template-columns: repeat(2,300px);
+}
+
+.main2{
+    display: grid;
+    grid-template-columns: repeat(2,300px);
+}
+
+#hotels,#Places,#Restaurant,#Food {
+    width: 95%;
+    border: 3px solid black;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.section-title {
+    font-size: 20px;
+    font-weight: bold;
+    text-decoration: underline;
+    margin-bottom: 10px;
+}
+
+ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+ul li {
+    margin-bottom: 8px;
+}

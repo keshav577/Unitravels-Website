@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <img src="car.jpg" alt="logo" height="140" width="150">
+        <div id="logo">
+            <h1>UniTravels</h1>
+            <a href="car.html">Home</a>
+            <a href="#">AboutUs</a>
+            <a href="#">Contact</a>
+        </div>   
+    </header>
+    <div class="side">
+        <a href="bus.html"><button id="box1">
+            <img src="bus.jpg" alt="" height="100" width="100">
+            <span><b>Bus Travel</b></span>
+        </button></a>
+        <a href="train.html"><button id="box2">
+            <img src="train.jpg" alt="" height="100" width="100">
+            <span><b>Train Travel</b></span>
+        </button></a>
+        <a href="car.html"><button id="box3">
+            <img src="car.jpg" alt="" height="100" width="100">
+            <span><b>Car Travel</b></span>
+        </button></a>
+        <a href="ideaaboutplaces.html"><button id="box4">
+            <img src="idea.jpg" alt="" height="100" width="100">
+            <span><b>Idea of Place</b></span>
+        </button></a>
+    </div>
+    <div id="web">
+        <div class="place">
+            <label for="location">From:</label>
+            <select id="location" required>
+                <option value="">Select Location</option>
+                <option value="Delhi">Delhi</option>
+                <option value="Mumbai">Mumbai</option>
+                <option value="Goa">Goa</option>
+                <option value="Ratlam">Ratlam</option>
+                <option value="Indore">Indore</option>
+            </select>
+            <label for="destination">To:</label>
+            <select id="destination" required>
+                <option value="">Select Location</option>
+                <option value="Delhi">Delhi</option>
+                <option value="Mumbai">Mumbai</option>
+                <option value="Goa">Goa</option>
+                <option value="Ratlam">Ratlam</option>
+                <option value="Indore">Indore</option>
+            </select>
+            <label for="date">Date:</label>
+            <input type="date" id="date">   
+        </div>
+        <div class="Search">
+            <button onclick="search()" id="buses">Search for Cars</button>
+        </div>
+        <p id="loginMessage" style="font-size: xx-large; font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; font-style: italic;"></p>  
+    </div>
+    <div id="cavail" style="display: none;">
+        <div id="caravail1" style="display: none;"><!--Indore to Ratlam-->
+            <table>
+                <thead>
+                    <tr>
+                        <th>Car Name</th>
+                        <th>Fuel Type</th>
+                        <th>Duration</th>
+                        <th>Km Fare</th>
+                        <th>Fare</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Dzire <b>{AC 4-Seats}</b></td>
+                        <td>CNG</td>
+                        <td>03h 00m</td>
+                        <td>INR 13.5 <b>{Per KM}</b></td>
+                        <td>INR 2503</td>
+                    </tr>
+                    <tr>
+                        <td>Dzire <b>{AC 4-Seats}</b></td>
+                        <td>Diesel</td>
+                        <td>03h 00m</td>
+                        <td>INR 18.5 <b>{Per KM}</b></td>
+                        <td>INR 3425</td>
+                    </tr>
+                    <tr>
+                        <td>Ertiga <b>{AC 6-Seats}</b></td>
+                        <td>CNG</td>
+                        <td>03h 00m</td>
+                        <td>INR 16.5 <b>{Per KM}</b></td>
+                        <td>INR 3665</td>
+                    </tr>
+                    <tr>
+                        <td>Ertiga <b>{AC 6-Seats}</b></td>
+                        <td>Diesel</td>
+                        <td>03h 00m</td>
+                        <td>INR 23.0 <b>{Per KM}</b></td>
+                        <td>INR 4634</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="caravail2" style="display: none;"><!--Indore to Delhi-->
+            <table>
+                <thead>
+                    <tr>
+                        <th>Car Name</th>
+                        <th>Fuel Type</th>
+                        <th>Duration</th>
+                        <th>Km Fare</th>
+                        <th>Fare</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Dzire <b>{AC 4-Seats}</b></td>
+                        <td>CNG</td>
+                        <td>14h 00m</td>
+                        <td>INR 15.0 <b>{Per KM}</b></td>
+                        <td>INR 14382</td>
+                    </tr>
+                    <tr>
+                        <td>Dzire <b>{AC 4-Seats}</b></td>
+                        <td>Diesel</td>
+                        <td>14h 00m</td>
+                        <td>INR 18.5 <b>{Per KM}</b></td>
+                        <td>INR 18938</td>
+                    </tr>
+                    <tr>
+                        <td>Ertiga <b>{AC 6-Seats}</b></td>
+                        <td>CNG</td>
+                        <td>14h 00m</td>
+                        <td>INR 20.0 <b>{Per KM}</b></td>
+                        <td>INR 17555</td>
+                    </tr>
+                    <tr>
+                        <td>Ertiga <b>{AC 6-Seats}</b></td>
+                        <td>Diesel</td>
+                        <td>14h 00m</td>
+                        <td>INR 23.0 <b>{Per KM}</b></td>
+                        <td>INR 25754</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="caravail3" style="display: none;"><!--Indore to Mumbai-->
+            <table>
+                <thead>
+                    <tr>
+                        <th>Car Name</th>
+                        <th>Fuel Type</th>
+                        <th>Duration</th>
+                        <th>Km Fare</th>
+                        <th>Fare</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Dzire <b>{AC 4-Seats}</b></td>
+                        <td>Diesel</td>
+                        <td>12h 00m</td>
+                        <td>INR 18.5 <b>{Per KM}</b></td>
+                        <td>INR 10474</td>
+                    </tr>
+                    <tr>
+                        <td>Ertiga <b>{AC 6-Seats}</b></td>
+                        <td>CNG</td>
+                        <td>12h 00m</td>
+                        <td>INR 20.0 <b>{Per KM}</b></td>
+                        <td>INR 10804</td>
+                    </tr>
+                    <tr>
+                        <td>Ertiga <b>{AC 6-Seats}</b></td>
+                        <td>Diesel</td>
+                        <td>12h 00m</td>
+                        <td>INR 23.0 <b>{Per KM}</b></td>
+                        <td>INR 15216</td>
+                    </tr>
+                    <tr>
+                        <td>Innova <b>{AC 6-Seats}</b></td>
+                        <td>Diesel</td>
+                        <td>12h 00m</td>
+                        <td>INR 26.0 <b>{Per KM}</b></td>
+                        <td>INR 17764</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="caravail4" style="display: none;"><!--Indore to Goa-->
+            <table>
+                <thead>
+                    <tr>
+                        <th>Car Name</th>
+                        <th>Fuel Type</th>
+                        <th>Duration</th>
+                        <th>Km Fare</th>
+                        <th>Fare</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Dzire <b>{AC 4-Seats}</b></td>
+                        <td>CNG</td>
+                        <td>21h 00m</td>
+                        <td>INR 15.0 <b>{Per KM}</b></td>
+                        <td>INR 19362</td>
+                    </tr>
+                    <tr>
+                        <td>Ertiga <b>{AC 6-Seats}</b></td>
+                        <td>CNG</td>
+                        <td>21h 00m</td>
+                        <td>INR 15.0 <b>{Per KM}</b></td>
+                        <td>INR 24348</td>
+                    </tr>
+                    <tr>
+                        <td>Ertiga <b>{AC 6-Seats}</b></td>
+                        <td>Diesel</td>
+                        <td>21h 00m</td>
+                        <td>INR 18.5 <b>{Per KM}</b></td>
+                        <td>INR 25047</td>
+                    </tr>
+                    <tr>
+                        <td>Innova <b>{AC 6-Seats}</b></td>
+                        <td>Diesel</td>
+                        <td>21h 00m</td>
+                        <td>INR 26.0 <b>{Per KM}</b></td>
+                        <td>INR 34192</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="caravail5" style="display: none;"><!--Delhi to Ratlam-->
+            <table>
+                <thead>
+                    <tr>
+                        <th>Car Name</th>
+                        <th>Fuel Type</th>
+                        <th>Duration</th>
+                        <th>Km Fare</th>
+                        <th>Fare</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Dzire <b>{AC 4-Seats}</b></td>
+                        <td>CNG</td>
+                        <td>12h 00m</td>
+                        <td>INR 16.0 <b>{Per KM}</b></td>
+                        <td>INR 9360</td>
+                    </tr>
+                    <tr>
+                        <td>Ertiga <b>{AC 6-Seats}</b></td>
+                        <td>CNG</td>
+                        <td>12h 00m</td>
+                        <td>INR 20.0 <b>{Per KM}</b></td>
+                        <td>INR 11245</td>
+                    </tr>
+                    <tr>
+                        <td>Ertiga <b>{AC 6-Seats}</b></td>
+                        <td>Diesel</td>
+                        <td>12h 00m</td>
+                        <td>INR 18.5 <b>{Per KM}</b></td>
+                        <td>INR 17529</td>
+                    </tr>
+                    <tr>
+                        <td>Innova <b>{AC 6-Seats}</b></td>
+                        <td>Diesel</td>
+                        <td>12h 00m</td>
+                        <td>INR 21.0 <b>{Per KM}</b></td>
+                        <td>INR 21304</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="caravail6" style="display: none;"><!--Delhi to Indore-->
+            <table>
+                <thead>
+                    <tr>
+                        <th>Car Name</th>
+                        <th>Fuel Type</th>
+                        <th>Duration</th>
+                        <th>Km Fare</th>
+                        <th>Fare</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Dzire <b>{AC 4-Seats}</b></td>
+                        <td>CNG</td>
+                        <td>14h 00m</td>
+                        <td>INR 15.0 <b>{Per KM}</b></td>
+                        <td>INR 14805</td>
+                    </tr>
+                    <tr>
+                        <td>Ertiga <b>{AC 6-Seats}</b></td>
+                        <td>CNG</td>
+                        <td>14h 00m</td>
+                        <td>INR 20.0 <b>{Per KM}</b></td>
+                        <td>INR 21150</td>
+                    </tr>
+                    <tr>
+                        <td>Ertiga <b>{AC 6-Seats}</b></td>
+                        <td>Diesel</td>
+                        <td>14h 00m</td>
+                        <td>INR 18.5 <b>{Per KM}</b></td>
+                        <td>INR 23950</td>
+                    </tr>
+                    <tr>
+                        <td>Innova <b>{AC 6-Seats}</b></td>
+                        <td>Diesel</td>
+                        <td>14h 00m</td>
+                        <td>INR 21.0 <b>{Per KM}</b></td>
+                        <td>INR 29145</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="caravail7" style="display: none;"><!--Delhi to Mumbai-->
+            <table>
+                <thead>
+                    <tr>
+                        <th>Car Name</th>
+                        <th>Fuel Type</th>
+                        <th>Duration</th>
+                        <th>Km Fare</th>
+                        <th>Fare</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Dzire <b>{AC 4-Seats}</b></td>
+                        <td>Petrol</td>
+                        <td>25h 00m</td>
+                        <td>INR 16.0 <b>{Per KM}</b></td>
+                        <td>INR 23120</td>
+                    </tr>
+                    <tr>
+                        <td>Dzire <b>{AC 4-Seats}</b></td>
+                        <td>CNG</td>
+                        <td>25h 00m</td>
+                        <td>INR 12.5 <b>{Per KM}</b></td>
+                        <td>INR 22515</td>
+                    </tr>
+                    <tr>
+                        <td>Ertiga <b>{AC 6-Seats}</b></td>
+                        <td>CNG</td>
+                        <td>25h 00m</td>
+                        <td>INR 15.5 <b>{Per KM}</b></td>
+                        <td>INR 33055</td>
+                    </tr>
+                    <tr>
+                        <td>Innova <b>{AC 6-Seats}</b></td>
+                        <td>Diesel</td>
+                        <td>25h 00m</td>
+                        <td>INR 21.0 <b>{Per KM}</b></td>
+                        <td>INR 47450</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="caravail8" style="display: none;"><!--Delhi to Goa-->
+            <table>
+                <thead>
+                    <tr>
+                        <th>Car Name</th>
+                        <th>Fuel Type</th>
+                        <th>Duration</th>
+                        <th>Km Fare</th>
+                        <th>Fare</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Dzire <b>{AC 4-Seats}</b></td>
+                        <td>CNG</td>
+                        <td>34h 00m</td>
+                        <td>INR 16.0 <b>{Per KM}</b></td>
+                        <td>INR 25692</td>
+                    </tr>
+                    <tr>
+                        <td>Ertiga <b>{AC 6-Seats}</b></td>
+                        <td>CNG</td>
+                        <td>34h 00m</td>
+                        <td>INR 20.0 <b>{Per KM}</b></td>
+                        <td>INR 30770</td>
+                    </tr>
+                    <tr>
+                        <td>Ertiga <b>{AC 6-Seats}</b></td>
+                        <td>Diesel</td>
+                        <td>34h 00m</td>
+                        <td>INR 18.5 <b>{Per KM}</b></td>
+                        <td>INR 51700</td>
+                    </tr>
+                    <tr>
+                        <td>Innova <b>{AC 6-Seats}</b></td>
+                        <td>Diesel</td>
+                        <td>34h 00m</td>
+                        <td>INR 21.0 <b>{Per KM}</b></td>
+                        <td>INR 70903</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="caravail9" style="display: none;"><!--Mumbai to Ratlam-->
+            <table>
+                <thead>
+                    <tr>
+                        <th>Car Name</th>
+                        <th>Fuel Type</th>
+                        <th>Duration</th>
+                        <th>Km Fare</th>
+                        <th>Fare</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Dzire <b>{AC 4-Seats}</b></td>
+                        <td>CNG</td>
+                        <td>13h 00m</td>
+                        <td>INR 16.0 <b>{Per KM}</b></td>
+                        <td>INR 11040</td>
+                    </tr>
+                    <tr>
+                        <td>Dzire <b>{AC 4-Seats}</b></td>
+                        <td>Diesel</td>
+                        <td>13h 00m</td>
+                        <td>INR 21 <b>{Per KM}</b></td>
+                        <td>INR 12806</td>
+                    </tr>
+                    <tr>
+                        <td>Ertiga <b>{AC 6-Seats}</b></td>
+                        <td>CNG</td>
+                        <td>13h 00m</td>
+                        <td>INR 23.0 <b>{Per KM}</b></td>
+                        <td>INR 15235</td>
+                    </tr>
+                    <tr>
+                        <td>Ertiga <b>{AC 6-Seats}</b></td>
+                        <td>Diesel</td>
+                        <td>13h 00m</td>
+                        <td>INR 23.5 <b>{Per KM}</b></td>
+                        <td>INR 20385</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="caravail10" style="display: none;"><!--Mumbai to Delhi-->
+            <table>
+                <thead>
+                    <tr>
+                        <th>Car Name</th>
+                        <th>Fuel Type</th>
+                        <th>Duration</th>
+                        <th>Km Fare</th>
+                        <th>Fare</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Dzire <b>{AC 4-Seats}</b></td>
+                        <td>Diesel</td>
+                        <td>25h 00m</td>
+                        <td>INR 20.5 <b>{Per KM}</b></td>
+                        <td>INR 38309</td>
+                    </tr>
+                    <tr>
+                        <td>Ertiga <b>{AC 6-Seats}</b></td>
+                        <td>Diesel</td>
+                        <td>25h 00m</td>
+                        <td>INR 23.5 <b>{Per KM}</b></td>
+                        <td>INR 48417</td>
+                    </tr>
+                    <tr>
+                        <td>Innova <b>{AC 6-Seats}</b></td>
+                        <td>Diesel</td>
+                        <td>25h 00m</td>
+                        <td>INR 23.5 <b>{Per KM}</b></td>
+                        <td>INR 58527</td>
+                    </tr>
+                    <tr>
+                        <td>Innova <b>{AC 6-Seats}</b></td>
+                        <td>Diesel</td>
+                        <td>25h 00m</td>
+                        <td>INR 28.5 <b>{Per KM}</b></td>
+                        <td>INR 70232</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="caravail11" style="display: none;"><!--Mumbai to Indore-->
+            <table>
+                <thead>
+                    <tr>
+                        <th>Car Name</th>
+                        <th>Fuel Type</th>
+                        <th>Duration</th>
+                        <th>Km Fare</th>
+                        <th>Fare</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Dzire <b>{AC 4-Seats}</b></td>
+                        <td>CNG</td>
+                        <td>15h 00m</td>
+                        <td>INR 16.0 <b>{Per KM}</b></td>
+                        <td>INR 11563</td>
+                    </tr>
+                    <tr>
+                        <td>Ertiga <b>{AC 6-Seats}</b></td>
+                        <td>CNG</td>
+                        <td>15h 00m</td>
+                        <td>INR 18.5 <b>{Per KM}</b></td>
+                        <td>INR 15417</td>
+                    </tr>
+                    <tr>
+                        <td>Innova <b>{AC 6-Seats}</b></td>
+                        <td>Diesel</td>
+                        <td>15h 00m</td>
+                        <td>INR 23.5 <b>{Per KM}</b></td>
+                        <td>INR 21042</td>
+                    </tr>
+                    <tr>
+                        <td>Innova <b>{AC 6-Seats}</b></td>
+                        <td>Diesel</td>
+                        <td>15h 00m</td>
+                        <td>INR 28.5 <b>{Per KM}</b></td>
+                        <td>INR 25270</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="caravail12" style="display: none;"><!--Mumbai to Goa-->
+            <table>
+                <thead>
+                    <tr>
+                        <th>Car Name</th>
+                        <th>Fuel Type</th>
+                        <th>Duration</th>
+                        <th>Km Fare</th>
+                        <th>Fare</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Dzire <b>{AC 4-Seats}</b></td>
+                        <td>CNG</td>
+                        <td>11h 00m</td>
+                        <td>INR 16.0 <b>{Per KM}</b></td>
+                        <td>INR 9835</td>
+                    </tr>
+                    <tr>
+                        <td>Ertiga <b>{AC 6-Seats}</b></td>
+                        <td>CNG</td>
+                        <td>11h 00m</td>
+                        <td>INR 18.5 <b>{Per KM}</b></td>
+                        <td>INR 11979</td>
+                    </tr>
+                    <tr>
+                        <td>Innova <b>{AC 6-Seats}</b></td>
+                        <td>Diesel</td>
+                        <td>11h 00m</td>
+                        <td>INR 23.5 <b>{Per KM}</b></td>
+                        <td>INR 20174</td>
+                    </tr>
+                    <tr>
+                        <td>Innova <b>{AC 6-Seats}</b></td>
+                        <td>Diesel</td>
+                        <td>11h 00m</td>
+                        <td>INR 28.5 <b>{Per KM}</b></td>
+                        <td>INR 24210</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="caravail13" style="display: none;"><!--Goa to Ratlam-->
+            <table>
+                <thead>
+                    <tr>
+                        <th>Car Name</th>
+                        <th>Fuel Type</th>
+                        <th>Duration</th>
+                        <th>Km Fare</th>
+                        <th>Fare</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Dzire <b>{AC 4-Seats}</b></td>
+                        <td>Diesel</td>
+                        <td>22h 00m</td>
+                        <td>INR 18.5 <b>{Per KM}</b></td>
+                        <td>INR 27240</td>
+                    </tr>
+                    <tr>
+                        <td>Ertiga <b>{AC 6-Seats}</b></td>
+                        <td>Diesel</td>
+                        <td>22h 00m</td>
+                        <td>INR 22.0 <b>{Per KM}</b></td>
+                        <td>INR 30880</td>
+                    </tr>
+                    <tr>
+                        <td>Innova <b>{AC 6-Seats}</b></td>
+                        <td>Diesel</td>
+                        <td>22h 00m</td>
+                        <td>INR 22.0 <b>{Per KM}</b></td>
+                        <td>INR 36967</td>
+                    </tr>
+                    <tr>
+                        <td>Innova <b>{AC 6-Seats}</b></td>
+                        <td>Diesel</td>
+                        <td>22h 00m</td>
+                        <td>INR 26.0 <b>{Per KM}</b></td>
+                        <td>INR 43975</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="caravail14" style="display: none;"><!--Goa to Delhi-->
+            <table>
+                <thead>
+                    <tr>
+                        <th>Car Name</th>
+                        <th>Fuel Type</th>
+                        <th>Duration</th>
+                        <th>Km Fare</th>
+                        <th>Fare</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Dzire <b>{AC 4-Seats}</b></td>
+                        <td>CNG</td>
+                        <td>33h 00m</td>
+                        <td>INR 29.0 <b>{Per KM}</b></td>
+                        <td>INR 70786</td>
+                    </tr>
+                    <tr>
+                        <td>Ertiga <b>{AC 6-Seats}</b></td>
+                        <td>CNG</td>
+                        <td>33h 00m</td>
+                        <td>INR 36.0 <b>{Per KM}</b></td>
+                        <td>INR 88093</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="caravail15" style="display: none;"><!--Goa to Mumbai-->
+            <table>
+                <thead>
+                    <tr>
+                        <th>Car Name</th>
+                        <th>Fuel Type</th>
+                        <th>Duration</th>
+                        <th>Km Fare</th>
+                        <th>Fare</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Dzire <b>{AC 4-Seats}</b></td>
+                        <td>Diesel</td>
+                        <td>11h 00m</td>
+                        <td>INR 18.5 <b>{Per KM}</b></td>
+                        <td>INR 10975</td>
+                    </tr>
+                    <tr>
+                        <td>Ertiga <b>{AC 6-Seats}</b></td>
+                        <td>Diesel</td>
+                        <td>11h 00m</td>
+                        <td>INR 22.0 <b>{Per KM}</b></td>
+                        <td>INR 14524</td>
+                    </tr>
+                    <tr>
+                        <td>Innova <b>{AC 6-Seats}</b></td>
+                        <td>Diesel</td>
+                        <td>11h 00m</td>
+                        <td>INR 22.0 <b>{Per KM}</b></td>
+                        <td>INR 19568</td>
+                    </tr>
+                    <tr>
+                        <td>Innova <b>{AC 6-Seats}</b></td>
+                        <td>Diesel</td>
+                        <td>11h 00m</td>
+                        <td>INR 26.0 <b>{Per KM}</b></td>
+                        <td>INR 23483</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="caravail16" style="display: none;"><!--Goa to Indore-->
+            <table>
+                <thead>
+                    <tr>
+                        <th>Car Name</th>
+                        <th>Fuel Type</th>
+                        <th>Duration</th>
+                        <th>Km Fare</th>
+                        <th>Fare</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Dzire <b>{AC 4-Seats}</b></td>
+                        <td>Diesel</td>
+                        <td>22h 00m</td>
+                        <td>INR 18.5 <b>{Per KM}</b></td>
+                        <td>INR 25143</td>
+                    </tr>
+                    <tr>
+                        <td>Ertiga <b>{AC 6-Seats}</b></td>
+                        <td>Diesel</td>
+                        <td>22h 00m</td>
+                        <td>INR 22.0 <b>{Per KM}</b></td>
+                        <td>INR 28515</td>
+                    </tr>
+                    <tr>
+                        <td>Innova <b>{AC 6-Seats}</b></td>
+                        <td>Diesel</td>
+                        <td>22h 00m</td>
+                        <td>INR 22.0 <b>{Per KM}</b></td>
+                        <td>INR 34197</td>
+                    </tr>
+                    <tr>
+                        <td>Innova <b>{AC 6-Seats}</b></td>
+                        <td>Diesel</td>
+                        <td>22h 00m</td>
+                        <td>INR 26.0 <b>{Per KM}</b></td>
+                        <td>INR 40685</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="caravail17" style="display: none;"><!--Ratlam to Indore-->
+            <table>
+                <thead>
+                    <tr>
+                        <th>Car Name</th>
+                        <th>Fuel Type</th>
+                        <th>Duration</th>
+                        <th>Km Fare</th>
+                        <th>Fare</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Dzire <b>{AC 4-Seats}</b></td>
+                        <td>Diesel</td>
+                        <td>03h 00m</td>
+                        <td>INR 18.5 <b>{Per KM}</b></td>
+                        <td>INR 3975</td>
+                    </tr>
+                    <tr>
+                        <td>Ertiga <b>{AC 6-Seats}</b></td>
+                        <td>Diesel</td>
+                        <td>03h 00m</td>
+                        <td>INR 23.0 <b>{Per KM}</b></td>
+                        <td>INR 5368</td>
+                    </tr>
+                    <tr>
+                        <td>Innova <b>{AC 6-Seats}</b></td>
+                        <td>Diesel</td>
+                        <td>03h 00m</td>
+                        <td>INR 20.0 <b>{Per KM}</b></td>
+                        <td>INR 7473</td>
+                    </tr>
+                    <tr>
+                        <td>Innova <b>{AC 6-Seats}</b></td>
+                        <td>Diesel</td>
+                        <td>03h 00m</td>
+                        <td>INR 31.0 <b>{Per KM}</b></td>
+                        <td>INR 8277</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="caravail18" style="display: none;"><!--Ratlam to Delhi-->
+            <table>
+                <thead>
+                    <tr>
+                        <th>Car Name</th>
+                        <th>Fuel Type</th>
+                        <th>Duration</th>
+                        <th>Km Fare</th>
+                        <th>Fare</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Dzire <b>{AC 4-Seats}</b></td>
+                        <td>CNG</td>
+                        <td>12h 00m</td>
+                        <td>INR 16.0 <b>{Per KM}</b></td>
+                        <td>INR 10637</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="caravail19" style="display: none;"><!--Ratlam to Mumbai-->
+            <table>
+                <thead>
+                    <tr>
+                        <th>Car Name</th>
+                        <th>Fuel Type</th>
+                        <th>Duration</th>
+                        <th>Km Fare</th>
+                        <th>Fare</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Dzire <b>{AC 4-Seats}</b></td>
+                        <td>CNG</td>
+                        <td>14h 00m</td>
+                        <td>INR 18.0 <b>{Per KM}</b></td>
+                        <td>INR 11968</td>
+                    </tr>
+                    <tr>
+                        <td>Dzire <b>{AC 4-Seats}</b></td>
+                        <td>Diesel</td>
+                        <td>14h 00m</td>
+                        <td>INR 18.5 <b>{Per KM}</b></td>
+                        <td>INR 21084</td>
+                    </tr>
+                    <tr>
+                        <td>Ertiga <b>{AC 6-Seats}</b></td>
+                        <td>Diesel</td>
+                        <td>14h 00m</td>
+                        <td>INR 23.0 <b>{Per KM}</b></td>
+                        <td>INR 26776</td>
+                    </tr>
+                    <tr>
+                        <td>Innova <b>{AC 6-Seats}</b></td>
+                        <td>Diesel</td>
+                        <td>14h 00m</td>
+                        <td>INR 31.0 <b>{Per KM}</b></td>
+                        <td>INR 37378</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script>
+        function search() {
+            const location = document.getElementById('location').value;
+            const destination = document.getElementById('destination').value;
+            const date = document.getElementById('date').value;
+            const loginMsg = document.getElementById('loginMessage');
+
+            if (!location || !destination){
+                loginMsg.textContent = "Select Location";
+                return;
+            }else if (location == destination ){
+                loginMsg.textContent = "Select Different Location";
+                return;
+            }else if (!date){
+                loginMsg.textContent = "Select Date";
+                return;
+            }else if (location=='Indore' && destination=='Ratlam'){
+                document.getElementById('web').style.display = 'none';
+                document.getElementById('cavail').style.display = 'block';
+                document.getElementById('caravail1').style.display = 'block';
+            }else if (location=='Indore' && destination=='Delhi'){
+                document.getElementById('web').style.display = 'none';
+                document.getElementById('cavail').style.display = 'block';
+                document.getElementById('caravail2').style.display = 'block';
+            }else if (location=='Indore' && destination=='Mumbai'){
+                document.getElementById('web').style.display = 'none';
+                document.getElementById('cavail').style.display = 'block';
+                document.getElementById('caravail3').style.display = 'block';
+            }else if (location=='Indore' && destination=='Goa'){
+                document.getElementById('web').style.display = 'none';
+                document.getElementById('cavail').style.display = 'block';
+                document.getElementById('caravail4').style.display = 'block';
+            }else if (location=='Delhi' && destination=='Ratlam'){
+                document.getElementById('web').style.display = 'none';
+                document.getElementById('cavail').style.display = 'block';
+                document.getElementById('caravail5').style.display = 'block';
+            }else if (location=='Delhi' && destination=='Indore'){
+                document.getElementById('web').style.display = 'none';
+                document.getElementById('cavail').style.display = 'block';
+                document.getElementById('caravail6').style.display = 'block';
+            }else if (location=='Delhi' && destination=='Mumbai'){
+                document.getElementById('web').style.display = 'none';
+                document.getElementById('cavail').style.display = 'block';
+                document.getElementById('caravail7').style.display = 'block';
+            }else if (location=='Delhi' && destination=='Goa'){
+                document.getElementById('web').style.display = 'none';
+                document.getElementById('cavail').style.display = 'block';
+                document.getElementById('caravail8').style.display = 'block';
+            }else if (location=='Mumbai' && destination=='Ratlam'){
+                document.getElementById('web').style.display = 'none';
+                document.getElementById('cavail').style.display = 'block';
+                document.getElementById('caravail9').style.display = 'block';
+            }else if (location=='Mumbai' && destination=='Delhi'){
+                document.getElementById('web').style.display = 'none';
+                document.getElementById('cavail').style.display = 'block';
+                document.getElementById('caravail10').style.display = 'block';
+            }else if (location=='Mumbai' && destination=='Indore'){
+                document.getElementById('web').style.display = 'none';
+                document.getElementById('cavail').style.display = 'block';
+                document.getElementById('caravail11').style.display = 'block';
+            }else if (location=='Mumbai' && destination=='Goa'){
+                document.getElementById('web').style.display = 'none';
+                document.getElementById('cavail').style.display = 'block';
+                document.getElementById('caravail12').style.display = 'block';
+            }else if (location=='Goa' && destination=='Ratlam'){
+                document.getElementById('web').style.display = 'none';
+                document.getElementById('cavail').style.display = 'block';
+                document.getElementById('caravail13').style.display = 'block';
+            }else if (location=='Goa' && destination=='Delhi'){
+                document.getElementById('web').style.display = 'none';
+                document.getElementById('cavail').style.display = 'block';
+                document.getElementById('caravail14').style.display = 'block';
+            }else if (location=='Goa' && destination=='Mumbai'){
+                document.getElementById('web').style.display = 'none';
+                document.getElementById('cavail').style.display = 'block';
+                document.getElementById('caravail15').style.display = 'block';
+            }else if (location=='Goa' && destination=='Indore'){
+                document.getElementById('web').style.display = 'none';
+                document.getElementById('cavail').style.display = 'block';
+                document.getElementById('caravail16').style.display = 'block';
+            }else if (location=='Ratlam' && destination=='Indore'){
+                document.getElementById('web').style.display = 'none';
+                document.getElementById('cavail').style.display = 'block';
+                document.getElementById('caravail17').style.display = 'block';
+            }else if (location=='Ratlam' && destination=='Delhi'){
+                document.getElementById('web').style.display = 'none';
+                document.getElementById('cavail').style.display = 'block';
+                document.getElementById('caravail18').style.display = 'block';
+            }else if (location=='Ratlam' && destination=='Mumbai'){
+                document.getElementById('web').style.display = 'none';
+                document.getElementById('cavail').style.display = 'block';
+                document.getElementById('caravail19').style.display = 'block';
+            }else {
+                loginMsg.textContent = "Sorry, No Bus Are Available In This Route";
+            }
+        }
+    </script>
+    
+</body>
+</html>

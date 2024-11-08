@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">        
+</head>
+<body>
+    <header>
+        <img src="idea.jpg" alt="logo" height="140" width="150">
+        <div id="logo">
+            <h1>UniTravels</h1>
+            <a href="ideaaboutplaces.html">Home</a>
+            <a href="#">AboutUs</a>
+            <a href="#">Contact</a>
+        </div>   
+    </header>
+    <div class="side">
+        <a href="bus.html"><button id="box1">
+            <img src="bus.jpg" alt="" height="100" width="100">
+            <span><b>Bus Travel</b></span>
+        </button></a>
+        <a href="train.html"><button id="box2">
+            <img src="train.jpg" alt="" height="100" width="100">
+            <span><b>Train Travel</b></span>
+        </button></a>
+        <a href="car.html"><button id="box3">
+            <img src="car.jpg" alt="" height="100" width="100">
+            <span><b>Car Travel</b></span>
+        </button></a>
+        <a href="ideaaboutplaces.html"><button id="box4">
+            <img src="idea.jpg" alt="" height="100" width="100">
+            <span><b>Idea of Place</b></span>
+        </button></a>
+    </div>
+    <div id="web1" style="display: block;">
+        <div class="place">
+            <label for="location">From:</label>
+            <select id="location" required>
+                <option value="">Select Location</option>
+                <option value="Delhi">Delhi</option>
+                <option value="Mumbai">Mumbai</option>
+                <option value="Goa">Goa</option>
+                <option value="Ratlam">Ratlam</option>
+                <option value="Indore">Indore</option>
+            </select>
+            <label for="destination">To:</label>
+            <select id="destination" required>
+                <option value="">Select Location</option>
+                <option value="Delhi">Delhi</option>
+                <option value="Mumbai">Mumbai</option>
+                <option value="Goa">Goa</option>
+                <option value="Ratlam">Ratlam</option>
+                <option value="Indore">Indore</option>
+            </select>
+        </div>
+        <div class="Search">
+            <button onclick="search()">Search About that Place</button>
+        </div>
+        <p id="loginMessage" style="font-size: xx-large; font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; font-style: italic;"></p>
+    </div>
+    <div id="Iavail" style="display: none;">
+        <div id="IA1" style="display: none;"><!--Delhi-->
+            <div class="main1">
+                <div id="hotels">
+                    <div class="section-title"><b><u>Best Hotels In Delhi</u></b></div><br>
+                    <ul>
+                        <li>Hotel Vivanta</li>
+                        <li>Hotel Luxury Villa</li>
+                        <li>Hotel Atlantis Suits</li>
+                        <li>Hotel Cardinal</li>
+                        <li>Hotel Golden Tower</li>
+                    </ul>
+                </div>
+                <div id="Places">
+                    <div class="section-title"><b><u>Best Places In Delhi</u></b></div><br>
+                    <ul>
+                        <li>India Gate</li>
+                        <li>Red Fort</li>
+                        <li>Akshardham</li>
+                        <li>Lotes Temple</li>
+                        <li>National Museum</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="main2">
+                <div id="Restaurant">
+                    <div class="section-title"><b><u>Best Restaurant In Delhi</u></b></div><br>
+                    <ul>
+                        <li>Lakhori Havli</li>
+                        <li>Spice Art</li>
+                        <li>Indian Ancent</li>
+                        <li>Thyme</li>
+                        <li>Shang Place</li>
+                    </ul>
+                </div>
+                <div id="Food">
+                    <div class="section-title"><b><u>Best Food of Delhi</u></b></div><br>
+                    <ul>
+                        <li>Chhole Bhature</li>
+                        <li>Momos</li>
+                        <li>Rolls</li>
+                        <li>Chaat</li>
+                        <li>Paranthe</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div id="IA2" style="display: none;"><!--Mumbai-->
+            <div class="main1">
+                <div id="hotels">
+                    <div class="section-title"><b><u>Best Hotels In Mumbai</u></b></div><br>
+                    <ul>
+                        <li>Moxy Mumbai</li>
+                        <li>Trident Nariman Point</li>
+                        <li>Taj Santacruz</li>
+                        <li>The Taj Mahal Palace</li>
+                        <li>Taj The Trees</li>
+                    </ul>
+                </div>
+                <div id="Places">
+                    <div class="section-title"><b><u>Best Places In Mumbai</u></b></div><br>
+                    <ul>
+                        <li>Gateway of India</li>
+                        <li>Sanjay Gandhi National Park</li>
+                        <li>Essel World</li>
+                        <li>Marine Drive</li>
+                        <li>Juhu</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="main2">
+                <div id="Restaurant">
+                    <div class="section-title"><b><u>Best Restaurant In Mumbai</u></b></div><br>
+                    <ul>
+                        <li>Hornby's Pavilion</li>
+                        <li>Yauatcha Mumbai</li>
+                        <li>Indian Accent</li>
+                        <li>Fifty Five East</li>
+                        <li>Nawab Saheb</li>
+                    </ul>
+                </div>
+                <div id="Food">
+                    <div class="section-title"><b><u>Best Food of Mumbai</u></b></div><br>
+                    <ul>
+                        <li>Panipuri</li>
+                        <li>Bombay Sandwich</li>
+                        <li>Vada Pav</li>
+                        <li>Ragda-Pattice</li>
+                        <li>Pav Bhaji</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div id="IA3" style="display: none;"><!--Indore-->
+            <div class="main1">
+                <div id="hotels">
+                    <div class="section-title"><b><u>Best Hotels In Indore</u></b></div><br>
+                    <ul>
+                        <li>Indore Marriott Hotel</li>
+                        <li>Radisson Blu Hotel</li>
+                        <li>Fairfield by Marriott</li>
+                        <li>Sayaji Hotel</li>
+                        <li>Sheraton Grand Palace</li>
+                    </ul>
+                </div>
+                <div id="Places">
+                    <div class="section-title"><b><u>Best Places In Indore</u></b></div><br>
+                    <ul>
+                        <li>Central Museum</li>
+                        <li>Shri Annapurna Temple</li>
+                        <li>Meghdoot Garden</li>
+                        <li>Gandhi Hall</li>
+                        <li>Regional Park</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="main2">
+                <div id="Restaurant">
+                    <div class="section-title"><b><u>Best Restaurant In Indore</u></b></div><br>
+                    <ul>
+                        <li>The Waterfall Restaurant</li>
+                        <li>Little Monk</li>
+                        <li>Sanchi</li>
+                        <li>Hotel Shreemaya</li>
+                        <li>Fire & Smoke</li>
+                    </ul>
+                </div>
+                <div id="Food">
+                    <div class="section-title"><b><u>Best Food of Indore</u></b></div><br>
+                    <ul>
+                        <li>Poha Jalebi</li>
+                        <li>Dahi Bada</li>
+                        <li>Mawa Baati</li>
+                        <li>Dal Bafla</li>
+                        <li>Bhutte ki Kees</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div id="IA4" style="display: none;"><!--Ratlam-->
+            <div class="main1">
+                <div id="hotels">
+                    <div class="section-title"><b><u>Best Hotels In Ratlam</u></b></div><br>
+                    <ul>
+                        <li>Samta Sagar Palace</li>
+                        <li>Lavanya Palace</li>
+                        <li>Balaji Central</li>
+                        <li>Ajanta Palace</li>
+                        <li>Rudra Palace</li>
+                    </ul>
+                </div>
+                <div id="Places">
+                    <div class="section-title"><b><u>Best Places In Ratlam</u></b></div><br>
+                    <ul>
+                        <li>Shree Mahalakshmi Temple</li>
+                        <li>Isarthuni Waterfall</li>
+                        <li>Shiva Valley</li>
+                        <li>Kalika Mata Mandir</li>
+                        <li>Mangalay Temple</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="main2">
+                <div id="Restaurant">
+                    <div class="section-title"><b><u>Best Restaurant In Ratlam</u></b></div><br>
+                    <ul>
+                        <li>Rajbhog</li>
+                        <li>Vyas Dal Bhatti</li>
+                        <li>Swad Exotica</li>
+                        <li>Terrace Treat</li>
+                        <li>Larelappa Restaurant</li>
+                    </ul>
+                </div>
+                <div id="Food">
+                    <div class="section-title"><b><u>Best Food of Ratlam</u></b></div><br>
+                    <ul>
+                        <li>Ratlami Poha</li>
+                        <li>Ratlami sev</li>
+                        <li>Dal bafla</li>
+                        <li>Sabudana Khichdi</li>
+                        <li>Kesar Chai</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div id="IA5" style="display: none;"><!--Goa-->
+            <div class="main1">
+                <div id="hotels">
+                    <div class="section-title"><b><u>Best Hotels In Goa</u></b></div><br>
+                    <ul>
+                        <li>Moustache Goa Luxuria</li>
+                        <li>Whoopers Boutique Morjim</li>
+                        <li>La Vaiencia Beach Resort</li>
+                        <li>Sandbanks Beach Resort</li>
+                        <li>Resort Primo Bom Terra Verde</li>
+                    </ul>
+                </div>
+                <div id="Places">
+                    <div class="section-title"><b><u>Best Places In Goa</u></b></div><br>
+                    <ul>
+                        <li>Velsao Beach</li>
+                        <li>Harvalem Waterfalls</li>
+                        <li>Sinquerim Fort</li>
+                        <li>Aguada Fort</li>
+                        <li>Dudhsagar Falls</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="main2">
+                <div id="Restaurant">
+                    <div class="section-title"><b><u>Best Restaurant In Goa</u></b></div><br>
+                    <ul>
+                        <li>Mama Miso</li>
+                        <li>FlyDining</li>
+                        <li>The Black Sheep Bistro</li>
+                        <li>The Lazy Goose</li>
+                        <li>Navtara</li>
+                    </ul>
+                </div>
+                <div id="Food">
+                    <div class="section-title"><b><u>Best Food of Goa</u></b></div><br>
+                    <ul>
+                        <li>Bebinca</li>
+                        <li>Prawn Balchão</li>
+                        <li>Feni</li>
+                        <li>Khatkhate</li>
+                        <li>Vindaloo</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function search() {
+            const location = document.getElementById('location').value;
+            const destination = document.getElementById('destination').value;
+            const loginMsg = document.getElementById('loginMessage');
+
+            if (!location || !destination){
+                loginMsg.textContent = "Select Location";
+                return;
+            }else if (location == destination ){
+                loginMsg.textContent = "Select Different Location";
+                return;
+            }else if (destination=="Delhi") {
+                document.getElementById('web1').style.display = 'none';
+                document.getElementById('Iavail').style.display = 'block';
+                document.getElementById('IA1').style.display = 'block';
+            }else if (destination=="Mumbai") {
+                document.getElementById('web1').style.display = 'none';
+                document.getElementById('Iavail').style.display = 'block';
+                document.getElementById('IA2').style.display = 'block';
+            }else if (destination=="Indore") {
+                document.getElementById('web1').style.display = 'none';
+                document.getElementById('Iavail').style.display = 'block';
+                document.getElementById('IA3').style.display = 'block';
+            }else if (destination=="Ratlam") {
+                document.getElementById('web1').style.display = 'none';
+                document.getElementById('Iavail').style.display = 'block';
+                document.getElementById('IA4').style.display = 'block';
+            }else if (destination=="Goa") {
+                document.getElementById('web1').style.display = 'none';
+                document.getElementById('Iavail').style.display = 'block';
+                document.getElementById('IA5').style.display = 'block';
+            }else{
+                loginMsg.textContent = "Sorry,No Such Place Found.";
+                return;
+            }
+        }
+    </script>
+    
+</body>
+</html>
