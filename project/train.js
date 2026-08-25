@@ -29,8 +29,15 @@
         DATA.getCities().forEach(function (c) {
             var o = document.createElement('option');
             o.value = c.name;
-            o.textContent = c.name + ' — ' + c.state;
+            var st = DATA.RAIL[c.name];
+            o.textContent = c.name + ' — ' + c.state + (st ? ' • ' + st.code : '');
             dl.appendChild(o);
+            if (st) {
+                var oc = document.createElement('option');
+                oc.value = st.code;
+                oc.textContent = st.code + ' — ' + st.name + ' (' + c.name + ')';
+                dl.appendChild(oc);
+            }
         });
     }
 
@@ -38,8 +45,9 @@
     var POPULAR = [
         ['Delhi', 'Mumbai'], ['Delhi', 'Kolkata'], ['Delhi', 'Lucknow'],
         ['Delhi', 'Agra'], ['Delhi', 'Katra'], ['Delhi', 'Pune'],
-        ['Mumbai', 'Ahmedabad'], ['Chennai', 'Bengaluru'], ['Kolkata', 'Patna'],
-        ['Hyderabad', 'Visakhapatnam'], ['Jaipur', 'Delhi'], ['Indore', 'Ratlam']
+        ['Mumbai', 'Kolkata'], ['Chennai', 'Kolkata'], ['Mumbai', 'Bengaluru'],
+        ['Delhi', 'Ahmedabad'], ['Delhi', 'Jammu'], ['Mumbai', 'Hyderabad'],
+        ['Chennai', 'Bengaluru'], ['Kolkata', 'Patna'], ['Indore', 'Ratlam']
     ];
     function fillPopular() {
         var box = document.getElementById('popularRoutes');
@@ -88,7 +96,7 @@
         var to = DATA.findCity(toEl.value);
 
         if (!fromEl.value.trim() || !toEl.value.trim()) { msgEl.textContent = 'Please select both cities'; return; }
-        if (!from || !to) { msgEl.textContent = 'Sorry, we could not find that city in our network'; return; }
+        if (!from || !to) { msgEl.textContent = 'City ya station code sahi likhein — e.g. Delhi / NDLS, Kolkata / HWH, Mumbai / CSMT'; return; }
         if (!dateEl.value) { msgEl.textContent = 'Please select a travel date'; return; }
         if (from.name.toLowerCase() === to.name.toLowerCase()) { msgEl.textContent = 'Origin and destination cannot be the same'; return; }
 
@@ -99,7 +107,7 @@
             return;
         }
         if (res.error || res.empty || !res.trains || !res.trains.length) {
-            msgEl.textContent = '😕 No direct trains run on this route. Try the Bus section for this journey.';
+            msgEl.textContent = '😕 No direct trains found between ' + from.name + ' and ' + to.name + ' on the selected date. Try a popular route below, or use the Bus section.';
             return;
         }
 
