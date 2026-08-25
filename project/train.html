@@ -5,8 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Train Booking | UniTravels</title>
     <meta name="description" content="Book real Indian Railways trains — Rajdhani, Shatabdi, Vande Bharat, Duronto and more across 120+ cities.">
-    <link rel="icon" type="image/jpeg" href="train.jpg">
-    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/jpeg" href="train.jpg?v=3">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <link rel="stylesheet" href="style.css?v=3">
 </head>
 <body data-dynamic="train">
     <header>
@@ -59,7 +62,7 @@
             </div>
         </div>
         <div class="Search">
-            <button onclick="trainSearch()">🔍 Search Trains</button>
+            <button type="button" id="trainSearchBtn">🔍 Search Trains</button>
         </div>
         <p id="loginMessage"></p>
         <div class="popularRoutes" id="popularRoutes"></div>
@@ -75,8 +78,8 @@
 
     <div id="tavail" style="display: none;"></div>
 
-    <script src="data.js"></script>
-    <script src="app.js"></script>
-    <script src="train.js"></script>
+    <script src="data.js?v=3"></script>
+    <script src="app.js?v=3"></script>
+    <script src="train.js?v=3"></script>
 </body>
 </html>

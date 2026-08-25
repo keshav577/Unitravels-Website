@@ -243,4 +243,19 @@
     fillCityList();
     fillPopular();
     bindTripRadios();
+
+    /* robust search binding (does not depend on inline onclick) */
+    var searchBtn = document.getElementById('carSearchBtn') || document.querySelector('.Search button');
+    if (searchBtn) {
+        searchBtn.addEventListener('click', function (e) {
+            e.preventDefault();
+            search();
+        });
+    }
+    [fromEl, toEl, dateEl].forEach(function (el) {
+        if (!el) return;
+        el.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter') { e.preventDefault(); search(); }
+        });
+    });
 })();

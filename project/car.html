@@ -5,8 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Car Booking | UniTravels</title>
     <meta name="description" content="Book intercity outstation cabs — Dzire, Ertiga, Innova Crysta and Tempo Travellers across 120+ Indian cities.">
-    <link rel="icon" type="image/jpeg" href="car.jpg">
-    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/jpeg" href="car.jpg?v=3">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <link rel="stylesheet" href="style.css?v=3">
 </head>
 <body data-dynamic="car">
     <header>
@@ -63,7 +66,7 @@
             <label class="chipToggle"><input type="radio" name="tripType" id="tripRound"> Round trip <span class="saveBadge">save 5%</span></label>
         </div>
         <div class="Search">
-            <button onclick="carSearch()">🔍 Search Cars</button>
+            <button type="button" id="carSearchBtn">🔍 Search Cars</button>
         </div>
         <p id="loginMessage"></p>
         <div class="popularRoutes" id="popularRoutes"></div>
@@ -79,8 +82,8 @@
 
     <div id="cavail" style="display: none;"></div>
 
-    <script src="data.js"></script>
-    <script src="app.js"></script>
-    <script src="car.js"></script>
+    <script src="data.js?v=3"></script>
+    <script src="app.js?v=3"></script>
+    <script src="car.js?v=3"></script>
 </body>
 </html>
