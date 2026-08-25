@@ -1,118 +1,187 @@
-/* General styles */
+/* ============================================================
+   UniTravels — About / Contact pages (matches the main UI)
+   ============================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+:root {
+    --blue-900: #08214d;
+    --blue-700: #0a2e6e;
+    --blue-500: #1a5cff;
+    --blue-50: #eef3ff;
+    --green: #0aa06e;
+    --bg: #f2f5fb;
+    --ink: #1c2333;
+    --muted: #64748b;
+    --line: #e3e9f5;
+    --shadow: 0 6px 24px rgba(10, 46, 110, 0.08);
+    --shadow-lg: 0 16px 40px rgba(10, 46, 110, 0.14);
+}
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Arial', sans-serif;
+    font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
 }
 
 body {
-    background-color: #f0f4f8;
-    color: #333;
-}
-
-header {
-    display: flex;
-    align-items: center;
-    padding: 20px;
-    background-color: #0044cc;
-    color: #fff;
-}
-
-img{
-    border-radius: 10px;
-}
-header img {
-    margin-right: 20px;
-    border-radius: 10px;
-}
-#logo {
+    background-color: var(--bg);
+    color: var(--ink);
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
 }
+
+/* ---------------- header ---------------- */
+header {
+    display: flex;
+    align-items: center;
+    padding: 14px 28px;
+    background: linear-gradient(120deg, var(--blue-900), var(--blue-700) 55%, var(--blue-500));
+    color: #fff;
+    box-shadow: 0 4px 18px rgba(8, 33, 77, 0.35);
+}
+
+img { border-radius: 12px; }
+
+header img {
+    margin-right: 18px;
+    border-radius: 14px;
+    height: 58px;
+    width: 58px;
+    object-fit: cover;
+    border: 2px solid rgba(255, 255, 255, 0.35);
+}
+
+#logo { display: flex; flex-direction: column; }
+
 #logo h1 {
     color: #fff;
-    font-size: 2em;
-    margin-bottom: 10px;
+    font-size: 1.9em;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
 }
+
 #logo a {
     color: #fff;
-    margin-right: 15px;
+    margin-right: 8px;
     text-decoration: none;
-    font-size: 1.2em;
+    font-size: 0.95em;
+    font-weight: 600;
+    background: rgba(255, 255, 255, 0.12);
+    padding: 6px 14px;
+    border-radius: 999px;
+    transition: background 0.2s;
+    display: inline-block;
 }
 
-#logo a:hover {
-    text-decoration: underline;
-}
+#logo a:hover { text-decoration: none; background: rgba(255, 255, 255, 0.28); }
 
+/* ---------------- content ---------------- */
 .main {
-    padding: 20px;
+    padding: 34px 20px 48px;
+    flex: 1;
 }
 
-.main h1,.main h2{
-    color: #333;
+.main h1, .main h2 {
+    color: var(--blue-900);
     text-align: center;
-    padding-bottom: 20px;
+    padding-bottom: 22px;
+    font-weight: 800;
 }
 
 .form {
     background: #fff;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 28px;
+    border-radius: 18px;
+    box-shadow: var(--shadow-lg);
     max-width: 600px;
     margin: 0 auto;
+    border: 1px solid var(--line);
 }
 
 label {
     display: block;
-    margin-bottom: 5px;
-    color: #333;
+    margin-bottom: 6px;
+    color: var(--blue-900);
+    font-weight: 700;
+    font-size: 0.95em;
 }
 
 input[type="text"],
 input[type="email"],
 textarea {
     width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
+    padding: 12px 14px;
+    margin-bottom: 14px;
+    border: 1.5px solid #cfd9ea;
+    border-radius: 12px;
+    background: #fbfcfe;
+    font-size: 1em;
+    transition: border-color 0.2s, box-shadow 0.2s;
 }
 
-textarea {
-    height: 150px;
+input:focus, textarea:focus {
+    outline: none;
+    border-color: var(--blue-500);
+    box-shadow: 0 0 0 4px rgba(26, 92, 255, 0.12);
 }
+
+textarea { height: 150px; resize: vertical; }
 
 button[type="submit"] {
-    background-color: #333;
+    background: linear-gradient(120deg, var(--blue-500), #4b83ff);
     color: #fff;
     border: none;
-    padding: 10px 20px;
-    border-radius: 3px;
+    padding: 13px 30px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 1em;
     cursor: pointer;
+    box-shadow: 0 6px 18px rgba(26, 92, 255, 0.3);
+    transition: filter 0.2s, transform 0.15s;
 }
 
-button[type="submit"]:hover {
-    background-color: #555;
-}
+button[type="submit"]:hover { filter: brightness(1.06); transform: translateY(-1px); }
 
-#aboutus{
+#SubmitMessage { margin-top: 12px; font-weight: 600; }
+
+#aboutus {
     background: #fff;
-    padding: 30px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 34px;
+    border-radius: 18px;
+    box-shadow: var(--shadow-lg);
     max-width: 800px;
     margin: 0 auto;
+    border: 1px solid var(--line);
+    line-height: 1.65;
 }
 
+#aboutus h3 { color: var(--blue-900); margin: 18px 0 8px; }
+#aboutus ul { margin: 8px 0 8px 4px; }
+#aboutus ul li { margin-bottom: 8px; }
+#aboutus a { color: var(--blue-500); font-weight: 600; }
+
+#aboutus button {
+    background: linear-gradient(120deg, var(--green), #12c48b);
+    color: #fff;
+    border: none;
+    padding: 13px 30px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 1.02em;
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(10, 160, 110, 0.35);
+}
+#aboutus button:hover { filter: brightness(1.06); }
+
+/* ---------------- footer ---------------- */
 footer {
-    background-color: #0044cc;
+    background: linear-gradient(120deg, var(--blue-900), var(--blue-700));
     color: #fff;
     text-align: center;
-    padding: 10px 0;
-    position: absolute;
-    bottom: 0;
+    padding: 16px 0;
+    margin-top: auto;
     width: 100%;
 }
