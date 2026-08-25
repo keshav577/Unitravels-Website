@@ -547,6 +547,8 @@ select:focus, input:focus {
 
 .dayRow { color: var(--muted); font-size: 0.85em; margin-top: 6px; font-weight: 600; }
 
+.trainBadges { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+
 .noRunNote { color: var(--red); font-size: 0.85em; font-weight: 700; margin-top: 6px; }
 
 .busCard.noRun { opacity: 0.55; }

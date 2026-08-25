@@ -231,6 +231,11 @@
                     '<div class="trainHead"><span class="trainNum">#' + tr.number + '</span>' +
                     '<span class="trainType tag-' + tr.tag + '">' + tr.typeName + '</span></div>' +
                     '<div class="opName">' + tr.name + '</div>' +
+                    '<div class="trainBadges">' +
+                        (tr.superfast ? '<span class="amenity">⚡ Superfast</span>' : '') +
+                        (tr.pantry ? '<span class="amenity">🍱 Pantry / Meals</span>' : '') +
+                        (tr.fullyAC ? '<span class="amenity">❄️ Fully AC</span>' : '') +
+                    '</div>' +
                     '<div class="dayRow">📅 ' + tr.runDaysLabel + '</div>' +
                     (runsToday ? '' : '<div class="noRunNote">⚠️ Does not run on the selected date</div>') +
                 '</div>' +

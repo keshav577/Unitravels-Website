@@ -589,20 +589,132 @@
         EXP: { name: 'Express', speed: 46, classes: ['2S', 'SL', '3A', '2A'], tag: 'exp' }
     };
 
-    /* real famous trains (route-direction specific) */
+    /* real famous trains (route-direction specific), IRCTC-style data.
+       days: 'daily' or array of weekday indexes [0=Sun..6=Sat]. */
     var FAMOUS_TRAINS = [
-        { key: 'delhi|mumbai', num: '12951', name: 'Mumbai Rajdhani Express', type: 'RAJ', dep: 1015, durMin: 940 },
-        { key: 'mumbai|delhi', num: '12952', name: 'New Delhi Rajdhani Express', type: 'RAJ', dep: 1020, durMin: 930 },
-        { key: 'delhi|kolkata', num: '12302', name: 'Howrah Rajdhani Express', type: 'RAJ', dep: 1010, durMin: 1025 },
-        { key: 'kolkata|delhi', num: '12301', name: 'New Delhi Rajdhani Express', type: 'RAJ', dep: 1010, durMin: 1025 },
-        { key: 'delhi|bhopal', num: '12002', name: 'Bhopal Shatabdi Express', type: 'SHAT', dep: 360, durMin: 490 },
-        { key: 'lucknow|delhi', num: '12004', name: 'Lucknow Swarna Shatabdi Express', type: 'SHAT', dep: 935, durMin: 405 },
-        { key: 'delhi|agra', num: '12050', name: 'Gatimaan Express', type: 'SF', dep: 490, durMin: 100 },
-        { key: 'delhi|katra', num: '22439', name: 'Katra Vande Bharat Express', type: 'VB', dep: 360, durMin: 480 },
-        { key: 'delhi|pune', num: '12264', name: 'Pune Duronto Express', type: 'DUR', dep: 376, durMin: 464 }
+        /* ---- Delhi ⇄ Mumbai ---- */
+        { key: 'delhi|mumbai', num: '12951', name: 'Mumbai Rajdhani Express', type: 'RAJ', dep: 1015, durMin: 940, days: 'daily' },
+        { key: 'delhi|mumbai', num: '12953', name: 'August Kranti Rajdhani Express', type: 'RAJ', dep: 1035, durMin: 960, days: 'daily' },
+        { key: 'delhi|mumbai', num: '12909', name: 'Bandra Terminus Garib Rath Express', type: 'GR', dep: 1295, durMin: 1080, days: 'daily' },
+        { key: 'mumbai|delhi', num: '12952', name: 'New Delhi Rajdhani Express', type: 'RAJ', dep: 1020, durMin: 930, days: 'daily' },
+        { key: 'mumbai|delhi', num: '12954', name: 'August Kranti Rajdhani Express', type: 'RAJ', dep: 1060, durMin: 960, days: 'daily' },
+        { key: 'mumbai|delhi', num: '12910', name: 'Nizamuddin Garib Rath Express', type: 'GR', dep: 765, durMin: 1080, days: 'daily' },
+
+        /* ---- Delhi ⇄ Kolkata ---- */
+        { key: 'delhi|kolkata', num: '12302', name: 'Howrah Rajdhani Express', type: 'RAJ', dep: 1010, durMin: 1025, days: 'daily' },
+        { key: 'delhi|kolkata', num: '12304', name: 'Poorva Express', type: 'SF', dep: 985, durMin: 1440, days: [1, 3, 5, 6] },
+        { key: 'kolkata|delhi', num: '12301', name: 'New Delhi Rajdhani Express', type: 'RAJ', dep: 1010, durMin: 1025, days: 'daily' },
+        { key: 'kolkata|delhi', num: '12303', name: 'Poorva Express', type: 'SF', dep: 480, durMin: 1440, days: [0, 2, 4, 6] },
+        { key: 'kolkata|delhi', num: '12259', name: 'New Delhi Sealdah Duronto Express', type: 'DUR', dep: 1120, durMin: 1000, days: [1, 3, 5, 0] },
+
+        /* ---- Delhi ⇄ Chennai ---- */
+        { key: 'delhi|chennai', num: '12622', name: 'Tamil Nadu Express', type: 'SF', dep: 1350, durMin: 2000, days: 'daily' },
+        { key: 'delhi|chennai', num: '12269', name: 'Chennai Duronto Express', type: 'DUR', dep: 1555, durMin: 1620, days: [2, 5] },
+        { key: 'chennai|delhi', num: '12621', name: 'Tamil Nadu Express', type: 'SF', dep: 1320, durMin: 2000, days: 'daily' },
+        { key: 'chennai|delhi', num: '12270', name: 'Hazrat Nizamuddin Duronto Express', type: 'DUR', dep: 400, durMin: 1680, days: [1, 4] },
+
+        /* ---- Delhi ⇄ Bengaluru ---- */
+        { key: 'delhi|bengaluru', num: '22692', name: 'KSR Bengaluru Rajdhani Express', type: 'RAJ', dep: 1200, durMin: 2040, days: 'daily' },
+        { key: 'delhi|bengaluru', num: '12628', name: 'Karnataka Express', type: 'SF', dep: 1275, durMin: 2160, days: 'daily' },
+        { key: 'bengaluru|delhi', num: '22691', name: 'Hazrat Nizamuddin Rajdhani Express', type: 'RAJ', dep: 1200, durMin: 2040, days: 'daily' },
+        { key: 'bengaluru|delhi', num: '12627', name: 'Karnataka Express', type: 'SF', dep: 1160, durMin: 2160, days: 'daily' },
+
+        /* ---- Delhi ⇄ Hyderabad ---- */
+        { key: 'delhi|hyderabad', num: '12724', name: 'Telangana Express', type: 'SF', dep: 1020, durMin: 1440, days: 'daily' },
+        { key: 'hyderabad|delhi', num: '12723', name: 'Telangana Express', type: 'SF', dep: 415, durMin: 1440, days: 'daily' },
+
+        /* ---- Delhi ⇄ Pune ---- */
+        { key: 'delhi|pune', num: '12264', name: 'Pune Duronto Express', type: 'DUR', dep: 376, durMin: 464, days: [0, 1, 3, 4, 5] },
+        { key: 'pune|delhi', num: '12263', name: 'Hazrat Nizamuddin Duronto Express', type: 'DUR', dep: 680, durMin: 480, days: [1, 2, 4, 5, 6] },
+
+        /* ---- Delhi ⇄ Lucknow ---- */
+        { key: 'delhi|lucknow', num: '12003', name: 'Lucknow Swarna Shatabdi Express', type: 'SHAT', dep: 370, durMin: 390, days: 'daily' },
+        { key: 'delhi|lucknow', num: '12230', name: 'Lucknow Mail', type: 'SF', dep: 1320, durMin: 420, days: 'daily' },
+        { key: 'lucknow|delhi', num: '12004', name: 'Lucknow Swarna Shatabdi Express', type: 'SHAT', dep: 935, durMin: 405, days: 'daily' },
+        { key: 'lucknow|delhi', num: '12229', name: 'Lucknow Mail', type: 'SF', dep: 1320, durMin: 420, days: 'daily' },
+
+        /* ---- Delhi ⇄ Kanpur ---- */
+        { key: 'delhi|kanpur', num: '12033', name: 'Kanpur Shatabdi Express', type: 'SHAT', dep: 360, durMin: 330, days: 'daily' },
+        { key: 'kanpur|delhi', num: '12034', name: 'Kanpur Shatabdi Express', type: 'SHAT', dep: 900, durMin: 330, days: 'daily' },
+
+        /* ---- Delhi ⇄ Agra ---- */
+        { key: 'delhi|agra', num: '12050', name: 'Gatimaan Express', type: 'SF', dep: 490, durMin: 100, days: [0, 1, 2, 3, 4, 6] },
+        { key: 'agra|delhi', num: '12049', name: 'Gatimaan Express', type: 'SF', dep: 1070, durMin: 100, days: [0, 1, 2, 3, 4, 6] },
+
+        /* ---- Delhi ⇄ Bhopal ---- */
+        { key: 'delhi|bhopal', num: '12001', name: 'Bhopal Shatabdi Express', type: 'SHAT', dep: 360, durMin: 490, days: 'daily' },
+        { key: 'bhopal|delhi', num: '12002', name: 'Bhopal Shatabdi Express', type: 'SHAT', dep: 880, durMin: 490, days: 'daily' },
+
+        /* ---- Delhi ⇄ Jaipur ---- */
+        { key: 'delhi|jaipur', num: '12015', name: 'Ajmer Shatabdi Express', type: 'SHAT', dep: 370, durMin: 280, days: 'daily' },
+        { key: 'jaipur|delhi', num: '12016', name: 'Ajmer Shatabdi Express', type: 'SHAT', dep: 1020, durMin: 280, days: 'daily' },
+
+        /* ---- Delhi ⇄ Chandigarh ---- */
+        { key: 'delhi|chandigarh', num: '12045', name: 'Chandigarh Shatabdi Express', type: 'SHAT', dep: 460, durMin: 200, days: 'daily' },
+        { key: 'chandigarh|delhi', num: '12046', name: 'Chandigarh Shatabdi Express', type: 'SHAT', dep: 1080, durMin: 200, days: 'daily' },
+
+        /* ---- Delhi ⇄ Katra ---- */
+        { key: 'delhi|katra', num: '22439', name: 'Katra Vande Bharat Express', type: 'VB', dep: 360, durMin: 480, days: [0, 1, 3, 4, 5, 6] },
+        { key: 'katra|delhi', num: '22462', name: 'Katra Vande Bharat Express', type: 'VB', dep: 900, durMin: 480, days: [0, 1, 3, 4, 5, 6] },
+        { key: 'delhi|katra', num: '12445', name: 'Uttar Sampark Kranti Express', type: 'SF', dep: 1030, durMin: 600, days: 'daily' },
+        { key: 'katra|delhi', num: '12446', name: 'Uttar Sampark Kranti Express', type: 'SF', dep: 480, durMin: 600, days: 'daily' },
+
+        /* ---- Delhi ⇄ Varanasi ---- */
+        { key: 'delhi|varanasi', num: '22435', name: 'Varanasi Vande Bharat Express', type: 'VB', dep: 360, durMin: 480, days: [0, 1, 2, 4, 5, 6] },
+        { key: 'varanasi|delhi', num: '22436', name: 'Varanasi Vande Bharat Express', type: 'VB', dep: 900, durMin: 480, days: [0, 1, 2, 4, 5, 6] },
+        { key: 'delhi|varanasi', num: '12560', name: 'Shiv Ganga Express', type: 'SF', dep: 1200, durMin: 720, days: 'daily' },
+        { key: 'varanasi|delhi', num: '12559', name: 'Shiv Ganga Express', type: 'SF', dep: 1320, durMin: 720, days: 'daily' },
+
+        /* ---- Delhi ⇄ Patna ---- */
+        { key: 'delhi|patna', num: '12310', name: 'Patna Rajdhani Express', type: 'RAJ', dep: 1055, durMin: 720, days: 'daily' },
+        { key: 'patna|delhi', num: '12309', name: 'Patna Rajdhani Express', type: 'RAJ', dep: 1160, durMin: 720, days: 'daily' },
+
+        /* ---- Delhi ⇄ Amritsar ---- */
+        { key: 'delhi|amritsar', num: '12013', name: 'Amritsar Shatabdi Express', type: 'SHAT', dep: 340, durMin: 360, days: 'daily' },
+        { key: 'amritsar|delhi', num: '12014', name: 'Amritsar Shatabdi Express', type: 'SHAT', dep: 300, durMin: 360, days: 'daily' },
+
+        /* ---- Mumbai ⇄ Pune ---- */
+        { key: 'mumbai|pune', num: '12123', name: 'Deccan Queen Express', type: 'SF', dep: 1040, durMin: 205, days: 'daily' },
+        { key: 'pune|mumbai', num: '12124', name: 'Deccan Queen Express', type: 'SF', dep: 435, durMin: 205, days: 'daily' },
+
+        /* ---- Mumbai ⇄ Ahmedabad ---- */
+        { key: 'mumbai|ahmedabad', num: '12009', name: 'Mumbai-Ahmedabad Shatabdi Express', type: 'SHAT', dep: 375, durMin: 420, days: 'daily' },
+        { key: 'ahmedabad|mumbai', num: '12010', name: 'Mumbai-Ahmedabad Shatabdi Express', type: 'SHAT', dep: 1020, durMin: 420, days: 'daily' },
+
+        /* ---- Mumbai ⇄ Goa (Madgaon) ---- */
+        { key: 'mumbai|goa', num: '10103', name: 'Mandovi Express', type: 'EXP', dep: 430, durMin: 720, days: 'daily' },
+        { key: 'goa|mumbai', num: '10104', name: 'Mandovi Express', type: 'EXP', dep: 480, durMin: 720, days: 'daily' },
+
+        /* ---- Chennai ⇄ Bengaluru ---- */
+        { key: 'chennai|bengaluru', num: '12027', name: 'Bengaluru Shatabdi Express', type: 'SHAT', dep: 355, durMin: 300, days: [0, 1, 2, 3, 5, 6] },
+        { key: 'chennai|bengaluru', num: '12607', name: 'Lalbagh Express', type: 'SF', dep: 435, durMin: 360, days: 'daily' },
+        { key: 'bengaluru|chennai', num: '12028', name: 'Chennai Shatabdi Express', type: 'SHAT', dep: 980, durMin: 300, days: [0, 1, 2, 3, 5, 6] },
+        { key: 'bengaluru|chennai', num: '12608', name: 'Lalbagh Express', type: 'SF', dep: 390, durMin: 360, days: 'daily' },
+
+        /* ---- Kolkata ⇄ Patna ---- */
+        { key: 'kolkata|patna', num: '12023', name: 'Patna Shatabdi Express', type: 'SHAT', dep: 360, durMin: 330, days: 'daily' },
+        { key: 'patna|kolkata', num: '12024', name: 'Patna Shatabdi Express', type: 'SHAT', dep: 900, durMin: 330, days: 'daily' },
+
+        /* ---- Hyderabad ⇄ Visakhapatnam ---- */
+        { key: 'hyderabad|visakhapatnam', num: '12727', name: 'Godavari Express', type: 'SF', dep: 1200, durMin: 600, days: 'daily' },
+        { key: 'visakhapatnam|hyderabad', num: '12728', name: 'Godavari Express', type: 'SF', dep: 1040, durMin: 600, days: 'daily' },
+
+        /* ---- Indore ⇄ Ratlam (regional, from original data) ---- */
+        { key: 'indore|ratlam', num: '19338', name: 'Indore-Ratlam DEMU Express', type: 'EXP', dep: 900, durMin: 870, days: [1, 3, 5] }
     ];
 
     var DAY_NAMES = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+    /* resolve a famous-train days spec into a 7-bool array */
+    function resolveDays(spec, typeKey, rnd) {
+        if (spec === 'daily') return [true, true, true, true, true, true, true];
+        if (Array.isArray(spec)) {
+            var d = [false, false, false, false, false, false, false];
+            spec.forEach(function (i) { if (i >= 0 && i < 7) d[i] = true; });
+            return d;
+        }
+        return makeRunDays(typeKey, rnd);
+    }
 
     function makeTrainNumber(type, rnd) {
         var n;
@@ -670,12 +782,17 @@
 
     function buildTrain(typeKey, num, name, depMin, durMin, fromCity, toCity, railDist, days, rnd) {
         var st1 = RAIL[fromCity.name], st2 = RAIL[toCity.name];
+        var t = TRAIN_TYPES[typeKey];
+        var fullyAC = t.classes.every(function (c) { return c !== 'SL' && c !== '2S'; });
         return {
             number: num,
             name: name,
             type: typeKey,
             typeName: TRAIN_TYPES[typeKey].name,
             tag: TRAIN_TYPES[typeKey].tag,
+            superfast: typeKey !== 'EXP',
+            pantry: typeKey === 'RAJ' || typeKey === 'DUR' || typeKey === 'VB' || typeKey === 'SHAT',
+            fullyAC: fullyAC,
             departureMin: depMin,
             departure: fmtDeparture(depMin),
             durationMin: durMin,
@@ -710,7 +827,7 @@
         var trains = [];
         FAMOUS_TRAINS.forEach(function (f) {
             if (f.key === key) {
-                var days = makeRunDays(f.type, rnd);
+                var days = resolveDays(f.days, f.type, rnd);
                 trains.push(buildTrain(f.type, f.num, f.name, f.dep, f.durMin, from, to, railDist, days, rnd));
             }
         });
