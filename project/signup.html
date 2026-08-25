@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Sign Up | UniTravels</title>
     <style>
         body {
             font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
@@ -72,20 +72,45 @@
         let selectedRide = {};
 
         function signUp() {
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
             const password = document.getElementById('password').value;
             const loginMsg = document.getElementById('loginMessage');
 
-            if (name && email && password) {
-                users.push({ name, email, password });
-                localStorage.setItem('users', JSON.stringify(users));
-                loginMsg.textContent = "Sign up successful! You can now log in.";
-                window.location.href = "Login.html";
-            } else {
-                loginMsg.textContent = "Please enter a valid username and password.";
+            if (!name || !email || !password) {
+                loginMsg.textContent = "Please fill in all the fields.";
+                return;
             }
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                loginMsg.textContent = "Please enter a valid email address.";
+                return;
+            }
+            if (password.length < 6) {
+                loginMsg.textContent = "Password must be at least 6 characters.";
+                return;
+            }
+            if (users.some(u => u.name.toLowerCase() === name.toLowerCase())) {
+                loginMsg.textContent = "That username is taken. Try another or login.";
+                return;
+            }
+            if (users.some(u => u.email.toLowerCase() === email.toLowerCase())) {
+                loginMsg.textContent = "An account with this email already exists.";
+                return;
+            }
+
+            users.push({ name, email, password });
+            localStorage.setItem('users', JSON.stringify(users));
+            loginMsg.textContent = "Sign up successful! Redirecting to login…";
+            loginMsg.style.color = "green";
+            setTimeout(function () {
+                window.location.href = "Login.html";
+            }, 900);
         }
+
+        /* Enter key submits the form */
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter') signUp();
+        });
     </script>
 </body>
 </html>
