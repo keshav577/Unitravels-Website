@@ -1,7 +1,7 @@
 /* ============================================================
    UniTravels – shared app logic
-   Adds real booking functionality, login awareness and small
-   quality-of-life upgrades to every page WITHOUT touching CSS.
+   Booking engine, login awareness, header upgrades.
+   Used by every page; works with the redesigned UI.
    ============================================================ */
 (function () {
     'use strict';
@@ -49,7 +49,6 @@
         return d.toLocaleDateString('en-IN', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' });
     }
 
-    /* expose for bookings.html and Login.html */
     window.UniTravels = {
         getUser: getUser,
         isLoggedIn: isLoggedIn,
@@ -61,12 +60,11 @@
         PENDING_KEY: PENDING_KEY
     };
 
-    /* ---------- header: greeting, auth links, fixed About/Contact ---------- */
+    /* ---------- header: greeting, auth links, admin ---------- */
     function setupHeader() {
         var logo = document.getElementById('logo');
         if (!logo) return;
 
-        /* fix dead "#" links left over in the original markup */
         Array.prototype.forEach.call(logo.querySelectorAll('a[href="#"]'), function (a) {
             var t = a.textContent.toLowerCase();
             if (t.indexOf('about') !== -1) a.href = 'aboutus.html';
@@ -108,6 +106,11 @@
             logo.appendChild(inA);
             logo.appendChild(upA);
         }
+
+        var adminA = document.createElement('a');
+        adminA.href = 'admin.html';
+        adminA.textContent = '🛠 Admin';
+        logo.appendChild(adminA);
     }
 
     /* ---------- date picker: today as default + minimum ---------- */
@@ -122,7 +125,12 @@
         if (!d.value) d.value = iso;
     }
 
-    /* ---------- travel pages (bus / train / car) ---------- */
+    function getPlace(id) {
+        var el = document.getElementById(id);
+        return el ? el.value : '';
+    }
+
+    /* ---------- travel pages with static tables (train / car) ---------- */
     function getArea() {
         return document.getElementById('bavail') ||
                document.getElementById('tavail') ||
@@ -141,7 +149,6 @@
         return '🚗';
     }
 
-    /* add a Book button to every result row */
     function setupBookButtons(area, mode) {
         Array.prototype.forEach.call(area.querySelectorAll('table'), function (table) {
             var head = table.querySelector('thead tr');
@@ -157,21 +164,19 @@
                 td.className = 'bookCell';
                 var btn = document.createElement('button');
                 btn.textContent = 'Book';
-                btn.addEventListener('click', function () { openBooking(tr, table, mode); });
+                btn.addEventListener('click', function () { openBookingFromRow(tr, table, mode); });
                 td.appendChild(btn);
                 tr.appendChild(td);
             });
         });
     }
 
-    /* results toolbar shown after a successful search */
     function setupResultsBar(area, mode) {
         var bar = document.createElement('div');
         bar.className = 'resultsBar';
         bar.style.display = 'none';
 
         var h = document.createElement('h3');
-
         var hint = document.createElement('p');
         hint.textContent = 'Tap “Book” on any option to reserve it. 👇';
 
@@ -191,7 +196,6 @@
         area._barTitle = h;
     }
 
-    /* watch the Search button and update the toolbar when results appear */
     function watchSearch(area, mode) {
         var btn = document.querySelector('.Search button');
         if (!btn) return;
@@ -199,8 +203,8 @@
             setTimeout(function () {
                 var visible = area.style.display === 'block';
                 if (!visible || !area._bar) return;
-                var from = document.getElementById('location').value;
-                var to = document.getElementById('destination').value;
+                var from = getPlace('location');
+                var to = getPlace('destination');
                 var dateEl = document.getElementById('date');
                 var title = iconOf(mode) + ' ' + mode + ' options: ' + from + ' → ' + to;
                 if (dateEl && dateEl.value) title += '  •  ' + niceDate(dateEl.value);
@@ -210,13 +214,16 @@
         });
     }
 
-    /* ---------- booking card ---------- */
+    /* ---------- booking card (shared) ---------- */
     var pendingSelection = null;
     var bookingDone = false;
 
-    function buildBookingCard() {
-        var card = document.createElement('div');
-        card.id = 'web1';
+    function ensureBookingCard() {
+        var card = document.getElementById('bkCard');
+        if (card) return card;
+        card = document.createElement('div');
+        card.id = 'bkCard';
+        card.className = 'bkCard';
         card.style.display = 'none';
         card.innerHTML =
             '<h3 id="bkTitle" style="text-align:center; margin-bottom:12px;">🎫 Confirm Your Booking</h3>' +
@@ -234,12 +241,15 @@
                 '</select></div>' +
                 '<p id="bkTotal" style="text-align:center; font-size:1.2em; margin:12px 0;"></p>' +
                 '<div class="Search"><button id="bkConfirm">Confirm Booking ✅</button></div>' +
-                '<p id="bkMsg" style="text-align:center; margin-top:12px; color:red;"></p>' +
+                '<p id="bkMsg" style="text-align:center; margin-top:12px;"></p>' +
             '</div>' +
             '<div class="Search" id="bkSuccessActions" style="display:none; margin-top:8px;">' +
                 '<button id="bkGoTrips">🧳 Go to My Bookings</button> ' +
                 '<button id="bkAgain">Book Another Trip</button>' +
-            '</div>';
+            '</div>' +
+            '<p style="text-align:center; margin-top:10px;">' +
+                '<button id="bkBack" class="ghostBtn">⬅ Back to results</button>' +
+            '</p>';
         document.body.appendChild(card);
 
         document.getElementById('bkConfirm').addEventListener('click', confirmBooking);
@@ -249,9 +259,17 @@
         document.getElementById('bkAgain').addEventListener('click', function () {
             location.reload();
         });
-        var seats = document.getElementById('paxSeats');
-        seats.addEventListener('change', updateTotal);
+        document.getElementById('bkBack').addEventListener('click', closeBookingCard);
+        document.getElementById('paxSeats').addEventListener('change', updateTotal);
         return card;
+    }
+
+    function closeBookingCard() {
+        if (bookingDone) { location.reload(); return; }
+        var card = document.getElementById('bkCard');
+        if (card) card.style.display = 'none';
+        var area = getArea();
+        if (area && area._hadResults) area.style.display = 'block';
     }
 
     function updateTotal() {
@@ -259,88 +277,41 @@
         var seats = parseInt(document.getElementById('paxSeats').value, 10) || 1;
         var total = pendingSelection.fare * seats;
         document.getElementById('bkTotal').innerHTML =
-            '💰 Total Fare: <b>INR ' + total.toLocaleString('en-IN') + '</b>' +
+            '💰 Total Fare: <b>₹ ' + total.toLocaleString('en-IN') + '</b>' +
             ' <span style="font-size:0.8em;">(' + pendingSelection.fare.toLocaleString('en-IN') + ' × ' + seats + ')</span>';
     }
 
-    function openBooking(tr, table, mode) {
-        var headers = [];
-        Array.prototype.forEach.call(table.querySelectorAll('thead th'), function (th, i, all) {
-            if (i < all.length - 1) headers.push(th.textContent.trim()); /* skip injected Book column */
-        });
-        var cells = [];
-        Array.prototype.forEach.call(tr.querySelectorAll('td'), function (td, i, all) {
-            if (i < all.length - 1) cells.push(td.textContent.trim()); /* skip injected Book cell */
-        });
-
-        /* the fare column is simply titled "Fare" */
-        var fareIdx = -1;
-        headers.forEach(function (h, i) { if (h === 'Fare') fareIdx = i; });
-        var fare = 0;
-        if (fareIdx !== -1) {
-            var m = cells[fareIdx].match(/[\d,]+/);
-            if (m) fare = parseInt(m[0].replace(/,/g, ''), 10) || 0;
-        }
-
-        var from = document.getElementById('location').value;
-        var to = document.getElementById('destination').value;
-        var dateEl = document.getElementById('date');
-        var date = dateEl ? dateEl.value : '';
-
-        pendingSelection = {
-            id: makeBookingId(),
-            mode: mode,
-            icon: iconOf(mode),
-            from: from,
-            to: to,
-            date: date,
-            headers: headers,
-            cells: cells,
-            operator: cells[0] || '',
-            fare: fare,
-            status: 'Confirmed',
-            bookedAt: new Date().toISOString()
-        };
-
-        var card = document.getElementById('web1');
-        if (!card || !document.getElementById('bkSummary')) card = buildBookingCard();
-
-        /* fill the summary table */
+    function fillSummary(pairs) {
         var summary = document.getElementById('bkSummary');
         summary.innerHTML = '';
-        headers.forEach(function (h, i) {
+        pairs.forEach(function (p) {
             var r = document.createElement('tr');
-            r.innerHTML = '<td>' + h + '</td><td>' + cells[i] + '</td>';
+            r.innerHTML = '<td>' + p[0] + '</td><td>' + p[1] + '</td>';
             summary.appendChild(r);
         });
-        var extra = [
-            ['Route', from + ' → ' + to],
-            ['Travel Date', niceDate(date)],
-            ['Mode', iconOf(mode) + ' ' + mode]
-        ];
-        extra.forEach(function (row) {
-            var r = document.createElement('tr');
-            r.innerHTML = '<td>' + row[0] + '</td><td>' + row[1] + '</td>';
-            summary.appendChild(r);
-        });
+    }
 
-        /* reset form state */
+    function openBookingCore(sel, pairs, card) {
+        pendingSelection = sel;
+        fillSummary(pairs);
+
         bookingDone = false;
         document.getElementById('bkTitle').textContent = '🎫 Confirm Your Booking';
         document.getElementById('bkForm').style.display = 'block';
         document.getElementById('bkSuccessActions').style.display = 'none';
         document.getElementById('bkMsg').textContent = '';
         document.getElementById('paxSeatsLabel').textContent =
-            (mode === 'Car' ? 'No. of Cars:' : 'Seats:');
-        var nameInput = document.getElementById('paxName');
-        nameInput.value = isLoggedIn() ? getUser().name : '';
+            (sel.mode === 'Car' ? 'No. of Cars:' : 'Seats:');
+        document.getElementById('paxName').value = isLoggedIn() ? getUser().name : '';
         document.getElementById('paxPhone').value = '';
         document.getElementById('paxSeats').value = '1';
         updateTotal();
 
-        /* swap the view */
         var area = getArea();
-        if (area) area.style.display = 'none';
+        if (area) {
+            area._hadResults = area.style.display === 'block';
+            area.style.display = 'none';
+        }
         var web = document.getElementById('web');
         if (web) web.style.display = 'none';
         card.style.display = 'block';
@@ -351,6 +322,78 @@
         }
     }
 
+    /* booking from a static table row (train / car pages) */
+    function openBookingFromRow(tr, table, mode) {
+        var headers = [];
+        Array.prototype.forEach.call(table.querySelectorAll('thead th'), function (th, i, all) {
+            if (i < all.length - 1) headers.push(th.textContent.trim());
+        });
+        var cells = [];
+        Array.prototype.forEach.call(tr.querySelectorAll('td'), function (td, i, all) {
+            if (i < all.length - 1) cells.push(td.textContent.trim());
+        });
+
+        var fareIdx = -1;
+        headers.forEach(function (h, i) { if (h === 'Fare') fareIdx = i; });
+        var fare = 0;
+        if (fareIdx !== -1) {
+            var m = cells[fareIdx].match(/[\d,]+/);
+            if (m) fare = parseInt(m[0].replace(/,/g, ''), 10) || 0;
+        }
+
+        var departure = '';
+        for (var i = 0; i < cells.length; i++) {
+            if (/^\d{1,2}:\d{2}/.test(cells[i])) { departure = cells[i]; break; }
+        }
+
+        var from = getPlace('location');
+        var to = getPlace('destination');
+        var dateEl = document.getElementById('date');
+
+        var pairs = [];
+        headers.forEach(function (h, i) { pairs.push([h, cells[i]]); });
+        pairs.push(['Route', from + ' → ' + to]);
+        if (dateEl && dateEl.value) pairs.push(['Travel Date', niceDate(dateEl.value)]);
+        pairs.push(['Mode', iconOf(mode) + ' ' + mode]);
+
+        openBookingCore({
+            id: makeBookingId(),
+            mode: mode,
+            icon: iconOf(mode),
+            from: from,
+            to: to,
+            date: dateEl ? dateEl.value : '',
+            operator: cells[0] || '',
+            fare: fare,
+            departure: departure,
+            status: 'Confirmed',
+            bookedAt: new Date().toISOString()
+        }, pairs, ensureBookingCard());
+    }
+
+    /* booking from rich data (bus cards / admin buses) */
+    function openBookingDirect(opts) {
+        var pairs = opts.details.slice();
+        pairs.push(['Route', opts.from + ' → ' + opts.to]);
+        if (opts.date) pairs.push(['Travel Date', niceDate(opts.date)]);
+        pairs.push(['Mode', iconOf(opts.mode) + ' ' + opts.mode]);
+
+        openBookingCore({
+            id: makeBookingId(),
+            mode: opts.mode,
+            icon: iconOf(opts.mode),
+            from: opts.from,
+            to: opts.to,
+            date: opts.date || '',
+            operator: opts.operator,
+            fare: opts.fare,
+            departure: opts.departure || '',
+            status: 'Confirmed',
+            bookedAt: new Date().toISOString()
+        }, pairs, ensureBookingCard());
+    }
+    window.UniTravels.openBookingDirect = openBookingDirect;
+
     function confirmBooking() {
         if (!pendingSelection || bookingDone) return;
         var name = document.getElementById('paxName').value.trim();
@@ -358,10 +401,8 @@
         var seats = parseInt(document.getElementById('paxSeats').value, 10) || 1;
         var msg = document.getElementById('bkMsg');
 
-        if (!name) { msg.textContent = 'Please enter the passenger name.'; return; }
-        if (!/^\d{10}$/.test(phone)) { msg.textContent = 'Please enter a valid 10-digit mobile number.'; return; }
-
-        msg.style.color = 'green';
+        if (!name) { msg.textContent = '⚠️ Please enter the passenger name.'; msg.style.color = '#d93025'; return; }
+        if (!/^\d{10}$/.test(phone)) { msg.textContent = '⚠️ Please enter a valid 10-digit mobile number.'; msg.style.color = '#d93025'; return; }
 
         var booking = Object.assign({}, pendingSelection, {
             passenger: name,
@@ -375,8 +416,8 @@
             addBooking(booking);
             showSuccess(booking);
         } else {
-            /* save the cart and bounce through the login page */
             sessionStorage.setItem(PENDING_KEY, JSON.stringify(booking));
+            msg.style.color = '#0a2e6e';
             msg.textContent = '🔐 Please login to confirm this booking… redirecting you now.';
             setTimeout(function () { location.href = 'Login.html'; }, 1200);
         }
@@ -387,6 +428,7 @@
         document.getElementById('bkTitle').textContent = '🎉 Booking Confirmed!';
         document.getElementById('bkForm').style.display = 'none';
         document.getElementById('bkSuccessActions').style.display = 'block';
+        document.getElementById('bkBack').style.display = 'none';
         var summary = document.getElementById('bkSummary');
         var r = document.createElement('tr');
         r.innerHTML = '<td>Booking ID</td><td><b>' + booking.id + '</b></td>';
@@ -394,7 +436,7 @@
         document.getElementById('bkMsg').textContent = '';
     }
 
-    /* ---------- destination guide page: icons + toolbar ---------- */
+    /* ---------- destination guide page ---------- */
     function setupIdeaPage() {
         var area = document.getElementById('Iavail');
         if (!area) return;
@@ -408,7 +450,6 @@
             });
         });
 
-        /* toolbar */
         var bar = document.createElement('div');
         bar.className = 'resultsBar';
         bar.style.display = 'none';
@@ -432,7 +473,7 @@
             btn.addEventListener('click', function () {
                 setTimeout(function () {
                     if (area.style.display !== 'block') return;
-                    var to = document.getElementById('destination').value;
+                    var to = getPlace('destination');
                     h.textContent = '📍 Your guide to ' + to;
                     bar.style.display = 'block';
                 }, 0);
@@ -444,13 +485,17 @@
     setupHeader();
     setupDate();
 
-    var area = getArea();
-    if (area) {
-        var mode = modeOf(area);
-        setupBookButtons(area, mode);
-        setupResultsBar(area, mode);
-        watchSearch(area, mode);
-    } else if (document.getElementById('Iavail')) {
-        setupIdeaPage();
+    var skipTransport = !!document.body.dataset.dynamic;
+
+    if (!skipTransport) {
+        var area = getArea();
+        if (area) {
+            var mode = modeOf(area);
+            setupBookButtons(area, mode);
+            setupResultsBar(area, mode);
+            watchSearch(area, mode);
+        } else if (document.getElementById('Iavail')) {
+            setupIdeaPage();
+        }
     }
 })();

@@ -8,7 +8,7 @@
     <link rel="icon" type="image/jpeg" href="bus.jpg">
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body data-dynamic="bookings">
     <header>
         <img src="bus.jpg" alt="logo" height="140" width="150">
         <div id="logo">
@@ -101,11 +101,13 @@
             }
 
             function departureOf(b) {
-                /* find cells that look like a time, e.g. "06:00 {AICTSL Campus}" */
-                for (var i = 0; i < b.cells.length; i++) {
+                /* dynamic bus bookings store departure directly */
+                if (b.departure) return b.departure;
+                /* static train/car rows: find the cell that looks like a time */
+                for (var i = 0; i < (b.cells || []).length; i++) {
                     if (/^\d{1,2}:\d{2}/.test(b.cells[i])) return b.cells[i];
                 }
-                return b.cells.length > 2 ? b.cells[2] : '—';
+                return '—';
             }
 
             function render() {
