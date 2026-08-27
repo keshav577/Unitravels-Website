@@ -931,6 +931,69 @@ td:first-child { font-weight: 700; color: var(--blue-900); }
     box-shadow: var(--shadow-lg);
 }
 
+/* guide grid (Idea of Place, data-driven) */
+.guideGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 16px;
+    margin-top: 16px;
+}
+
+.guideCard {
+    background: linear-gradient(180deg, #fdfeff, #f8faff);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: 22px;
+    box-shadow: var(--shadow);
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative;
+    overflow: hidden;
+    animation: cardIn 0.5s cubic-bezier(.22,.9,.34,1) backwards;
+}
+.guideCard:nth-child(2) { animation-delay: 0.06s; }
+.guideCard:nth-child(3) { animation-delay: 0.12s; }
+.guideCard:nth-child(4) { animation-delay: 0.18s; }
+
+.guideCard::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 4px;
+}
+.guideCard:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+
+.g-hotels::before { background: linear-gradient(90deg, var(--indigo), #8b5cf6); }
+.g-places::before { background: linear-gradient(90deg, var(--saffron), #fbbf24); }
+.g-resto::before  { background: linear-gradient(90deg, #dc2626, #f97316); }
+.g-food::before   { background: linear-gradient(90deg, #059669, #12c48b); }
+
+.guideHead {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+}
+
+.guideIcon {
+    width: 42px;
+    height: 42px;
+    border-radius: 14px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3em;
+    background: #fff;
+    border: 1px solid var(--line);
+    box-shadow: 0 4px 12px rgba(18, 58, 143, 0.14);
+}
+
+.guideTitle {
+    font-family: var(--font-display);
+    font-weight: 800;
+    color: var(--blue-900);
+    font-size: 1.05em;
+}
+
 .section-title {
     font-size: 19px;
     font-weight: 800;

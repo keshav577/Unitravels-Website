@@ -926,6 +926,122 @@
         return { cars: cars, roadKm: Math.round(roadDist) };
     }
 
+    /* ============================================================
+       DESTINATION GUIDES — curated real hotels / sights / eateries
+       ============================================================ */
+    var GUIDES = {
+        'Delhi': {
+            hotels: ['The Imperial New Delhi', 'The Leela Palace', 'ITC Maurya', 'Taj Palace', 'The Lalit'],
+            places: ['India Gate', 'Red Fort', 'Akshardham', 'Lotus Temple', 'Qutub Minar'],
+            restaurants: ['Lakhori Haveli', 'Indian Accent', 'Bukhara (ITC Maurya)', 'Thyme', 'Dum Pukht'],
+            food: ['Chole Bhature', 'Parathe Wali Gali', 'Momos', 'Chaat', 'Nihari']
+        },
+        'Mumbai': {
+            hotels: ['The Taj Mahal Palace', 'Trident Nariman Point', 'The Oberoi Mumbai', 'JW Marriott Sahar', 'Taj Santacruz'],
+            places: ['Gateway of India', 'Marine Drive', 'Elephanta Caves', 'Juhu Beach', 'Sanjay Gandhi National Park'],
+            restaurants: ['Trishna', 'Britannia & Co.', 'Leopold Cafe', 'Peshwega', 'Prakash Shakahari'],
+            food: ['Vada Pav', 'Pav Bhaji', 'Bombay Sandwich', 'Pani Puri', 'Ragda Pattice']
+        },
+        'Goa': {
+            hotels: ['Taj Exotica Benaulim', 'W Goa (Vagator)', 'The Leela Goa', 'Alila Diwa', 'Sandbanks Beach Resort'],
+            places: ['Baga Beach', 'Dudhsagar Falls', 'Fort Aguada', 'Basilica of Bom Jesus', 'Palolem Beach'],
+            restaurants: ['Fisherman\u2019s Wharf', 'A Reverie', 'Black Sheep Bistro', 'Ritz Classic', 'Martin\u2019s Corner'],
+            food: ['Goan Fish Curry', 'Prawn Balchao', 'Bebinca', 'Pork Vindaloo', 'Xacuti']
+        },
+        'Indore': {
+            hotels: ['Indore Marriott', 'Sayaji Hotel', 'Radisson Blu', 'Sheraton Grand Palace', 'Fairfield by Marriott'],
+            places: ['Rajwada Palace', 'Khajrana Ganesh Mandir', 'Lal Bagh Palace', 'Patalpani Waterfall', 'Central Museum'],
+            restaurants: ['Shreemaya Celebrity', 'Nakhrali Dhani', 'Kebabsville', 'Little Monk', 'The Waterfall'],
+            food: ['Poha-Jalebi', 'Dahi Bada', 'Dal Bafla', 'Bhutte ka Kees', 'Mawa Bati']
+        },
+        'Ratlam': {
+            hotels: ['Hotel Samta Sagar Palace', 'Lavanya Palace', 'Balaji Central', 'Ajanta Palace', 'Rudra Palace'],
+            places: ['Shree Mahalakshmi Temple', 'Isarthuni Waterfall', 'Shiva Valley', 'Kalika Mata Mandir', 'Mangalay Temple'],
+            restaurants: ['Rajbhog', 'Vyas Dal Bhatti', 'Swad Exotica', 'Terrace Treat', 'Larelappa Restaurant'],
+            food: ['Ratlami Poha', 'Ratlami Sev', 'Dal Bafla', 'Sabudana Khichdi', 'Kesar Chai']
+        },
+        'Jaipur': {
+            hotels: ['Rambagh Palace', 'Trident Jaipur', 'ITC Rajputana', 'Hilton Jaipur', 'Zostel Jaipur'],
+            places: ['Hawa Mahal', 'Amber Fort', 'City Palace', 'Jantar Mantar', 'Nahargarh Fort'],
+            restaurants: ['Laxmi Misthan Bhandar', 'Handi Restaurant', 'Tapri Central', 'Suvarna Mahal', 'Chokhi Dhani'],
+            food: ['Dal Baati Churma', 'Pyaaz Kachori', 'Ghewar', 'Mirchi Bada', 'Laal Maas']
+        },
+        'Agra': {
+            hotels: ['The Oberoi Amarvilas', 'ITC Mughal', 'Trident Agra', 'Crystal Sarovar Premiere', 'Hotel Clarks Shiraz'],
+            places: ['Taj Mahal', 'Agra Fort', 'Mehtab Bagh', 'Fatehpur Sikri', 'Itmad-ud-Daulah'],
+            restaurants: ['Esphahan (Oberoi)', 'Pinch of Spice', 'Joney\u2019s Place', 'Da Italian Cafe', 'Good Point'],
+            food: ['Agra ka Petha', 'Bedhai-Sabzi', 'Mughlai Korma', 'Dalmoth', 'Gajak']
+        },
+        'Varanasi': {
+            hotels: ['BrijRama Palace', 'Taj Ganges', 'Clarks Varanasi', 'Hotel Surya', 'Amritara Kashi'],
+            places: ['Kashi Vishwanath Temple', 'Dashashwamedh Ghat (Ganga Aarti)', 'Assi Ghat', 'Sarnath', 'Manikarnika Ghat'],
+            restaurants: ['Blue Lassi', 'Kashi Chat Bhandar', 'Baati Chokha', '1916 Cafe', 'Dolma Food'],
+            food: ['Banarasi Paan', 'Kachori-Sabzi', 'Malaiyo', 'Tamatar Chaat', 'Banarasi Lassi']
+        },
+        'Amritsar': {
+            hotels: ['Hyatt Regency Amritsar', 'The Ranjit Svaasa', 'Country Inn & Suites', 'Hotel Sarovar Regency', 'Golden Tulip'],
+            places: ['Golden Temple', 'Jallianwala Bagh', 'Wagah Border', 'Partition Museum', 'Durgiana Temple'],
+            restaurants: ['Kesar ka Dhaba', 'Brothers Dhaba', 'Beera Chicken House', 'Makhan Fish & Chicken', 'Gian Di Lassi'],
+            food: ['Amritsari Kulcha', 'Amritsari Fish', 'Chole Bhature', 'Lassi', 'Phirni']
+        },
+        'Kolkata': {
+            hotels: ['The Oberoi Grand', 'ITC Sonar', 'Taj Bengal', 'The Park', 'JW Marriott Kolkata'],
+            places: ['Victoria Memorial', 'Howrah Bridge', 'Dakshineswar Kali Temple', 'Prinsep Ghat', 'Science City'],
+            restaurants: ['Peter Cat', 'Mocambo', '6 Ballygunge Place', 'Oh! Calcutta', 'Flurys'],
+            food: ['Rosogolla', 'Kathi Roll', 'Mishti Doi', 'Puchka', 'Machher Jhol']
+        },
+        'Chennai': {
+            hotels: ['ITC Grand Chola', 'Taj Connemara', 'The Leela Palace Chennai', 'Park Hyatt', 'Hotel Savera'],
+            places: ['Marina Beach', 'Kapaleeshwarar Temple', 'Fort St. George', 'San Thome Basilica', 'Government Museum'],
+            restaurants: ['Murugan Idli Shop', 'Saravana Bhavan', 'Rayar\u2019s Mess', 'Anjappar Chettinad', 'Aashevaa'],
+            food: ['Masala Dosa', 'Idli-Sambar', 'Chettinad Chicken', 'Filter Coffee', 'Milagai Bajji']
+        },
+        'Bengaluru': {
+            hotels: ['The Leela Palace', 'ITC Gardenia', 'Taj MG Road', 'The Oberoi Lalbagh', 'Shangri-La'],
+            places: ['Lalbagh Botanical Garden', 'Cubbon Park', 'Bangalore Palace', 'Vidhana Soudha', 'ISKCON Temple'],
+            restaurants: ['MTR', 'Vidyarthi Bhavan', 'Empire Restaurant', 'Truffles', 'Koshy\u2019s'],
+            food: ['Masala Dosa', 'Bisi Bele Bath', 'Donne Biryani', 'Filter Coffee', 'Idli-Vada']
+        },
+        'Hyderabad': {
+            hotels: ['Taj Falaknuma Palace', 'Taj Krishna', 'ITC Kakatiya', 'Vivanta Begumpet', 'Taj Deccan'],
+            places: ['Charminar', 'Golconda Fort', 'Ramoji Film City', 'Hussain Sagar', 'Salar Jung Museum'],
+            restaurants: ['Paradise Biryani', 'Hotel Shadab', 'Bawarchi', 'Jewel of Nizam', 'Chutnees'],
+            food: ['Hyderabadi Biryani', 'Haleem', 'Irani Chai & Osmania Biscuit', 'Qubani ka Meetha', 'Mirchi ka Salan']
+        },
+        'Pune': {
+            hotels: ['JW Marriott Pune', 'The Westin Koregaon Park', 'Hyatt Regency Pune', 'Sheraton Grand', 'Hotel Aurora Towers'],
+            places: ['Shaniwar Wada', 'Aga Khan Palace', 'Sinhagad Fort', 'Dagadusheth Halwai Ganpati', 'Raja Dinkar Kelkar Museum'],
+            restaurants: ['Vohuman Cafe', 'George Restaurant', 'Cafe Good Luck', 'Shabree', 'Marz-o-Ran'],
+            food: ['Misal Pav', 'Mastani', 'Bakarwadi', 'Thali Peeth', 'Puran Poli']
+        },
+        'Ahmedabad': {
+            hotels: ['The House of MG', 'ITC Narmada', 'Hyatt Regency Ahmedabad', 'Taj Skyline', 'Fortune Landmark'],
+            places: ['Sabarmati Ashram', 'Kankaria Lake', 'Adalaj Stepwell', 'Sidi Saiyyed Mosque', 'Akshardham (Gandhinagar)'],
+            restaurants: ['Agashiye (House of MG)', 'Vishalla', 'Manek Chowk (food street)', 'Das Coffee House', 'Toran'],
+            food: ['Dhokla', 'Fafda-Jalebi', 'Khaman', 'Undhiyu', 'Gujarati Thali']
+        },
+        'Udaipur': {
+            hotels: ['Taj Lake Palace', 'The Oberoi Udaivilas', 'Trident Udaipur', 'Fateh Prakash Palace', 'Jagat Niwas Palace'],
+            places: ['City Palace', 'Lake Pichola', 'Fateh Sagar Lake', 'Jag Mandir', 'Sajjangarh (Monsoon Palace)'],
+            restaurants: ['Ambrai', 'Millets of Mewar', 'Natraj Dining Hall', 'Upre by 1559', 'Jaiwana Haveli Rooftop'],
+            food: ['Dal Baati Churma', 'Gatte ki Sabzi', 'Mawa Kachori', 'Mirchi Bada', 'Ker Sangri']
+        },
+        'Lucknow': {
+            hotels: ['Clarks Avadh', 'Hyatt Regency Lucknow', 'Renaissance Lucknow', 'The LaLiT Lucknow', 'York Hotel'],
+            places: ['Bara Imambara', 'Chota Imambara', 'Rumi Darwaza', 'British Residency', 'Hazratganj'],
+            restaurants: ['Tunday Kababi', 'Raheem\u2019s Kulfi-Nahari', 'Idrees Biryani', 'Dastarkhwan Lalbagh', 'Oudhyana'],
+            food: ['Galouti Kebab', 'Lucknowi Biryani', 'Kulfi Falooda', 'Nihari', 'Awadhi Korma']
+        }
+    };
+
+    function getGuide(cityName) {
+        return GUIDES[cityName] || null;
+    }
+
+    function guideCities() {
+        return Object.keys(GUIDES);
+    }
+
     /* ---------------- export ---------------- */
     window.UniTravelsData = {
         getCities: getCities,
@@ -949,6 +1065,8 @@
         TRAIN_TYPES: TRAIN_TYPES,
         getTrainsForRoute: getTrainsForRoute,
         getCarsForRoute: getCarsForRoute,
+        getGuide: getGuide,
+        guideCities: guideCities,
         DAY_NAMES: DAY_NAMES
     };
 })();
