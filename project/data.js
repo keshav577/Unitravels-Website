@@ -932,33 +932,33 @@
     var GUIDES = {
         'Delhi': {
             hotels: ['The Imperial New Delhi', 'The Leela Palace', 'ITC Maurya', 'Taj Palace', 'The Lalit'],
-            places: ['India Gate', 'Red Fort', 'Akshardham', 'Lotus Temple', 'Qutub Minar'],
-            restaurants: ['Lakhori Haveli', 'Indian Accent', 'Bukhara (ITC Maurya)', 'Thyme', 'Dum Pukht'],
-            food: ['Chole Bhature', 'Parathe Wali Gali', 'Momos', 'Chaat', 'Nihari']
+            places: ['India Gate', 'Red Fort', 'Qutub Minar', 'Akshardham', 'Lotus Temple', 'Jama Masjid'],
+            restaurants: ['Karim\u2019s (Old Delhi)', 'Parathe Wali Gali', 'Kake Da Hotel (CP)', 'Indian Accent', 'Bukhara (ITC Maurya)'],
+            food: ['Chole Bhature', 'Dilli ki Chaat', 'Parathe', 'Nizamuddin Firni', 'Nihari']
         },
         'Mumbai': {
             hotels: ['The Taj Mahal Palace', 'Trident Nariman Point', 'The Oberoi Mumbai', 'JW Marriott Sahar', 'Taj Santacruz'],
-            places: ['Gateway of India', 'Marine Drive', 'Elephanta Caves', 'Juhu Beach', 'Sanjay Gandhi National Park'],
-            restaurants: ['Trishna', 'Britannia & Co.', 'Leopold Cafe', 'Peshwega', 'Prakash Shakahari'],
-            food: ['Vada Pav', 'Pav Bhaji', 'Bombay Sandwich', 'Pani Puri', 'Ragda Pattice']
+            places: ['Gateway of India', 'Marine Drive', 'Juhu Beach', 'Elephanta Caves', 'Sanjay Gandhi National Park'],
+            restaurants: ['Ashok Vada Pav (Dadar)', 'Sardar\u2019s Pav Bhaji (Tardeo)', 'Trishna', 'Britannia & Co.', 'Swati Snacks'],
+            food: ['Vada Pav', 'Pav Bhaji', 'Bhel Puri (Juhu)', 'Bombay Sandwich', 'Cutting Chai']
         },
         'Goa': {
-            hotels: ['Taj Exotica Benaulim', 'W Goa (Vagator)', 'The Leela Goa', 'Alila Diwa', 'Sandbanks Beach Resort'],
+            hotels: ['Taj Exotica Benaulim', 'W Goa (Vagator)', 'The Leela Goa', 'Alila Diwa', 'St. Regis (Mobor)'],
             places: ['Baga Beach', 'Dudhsagar Falls', 'Fort Aguada', 'Basilica of Bom Jesus', 'Palolem Beach'],
-            restaurants: ['Fisherman\u2019s Wharf', 'A Reverie', 'Black Sheep Bistro', 'Ritz Classic', 'Martin\u2019s Corner'],
-            food: ['Goan Fish Curry', 'Prawn Balchao', 'Bebinca', 'Pork Vindaloo', 'Xacuti']
+            restaurants: ['Copperleaf (Panaji)', 'The Black Sheep Bistro', 'Fisherman\u2019s Wharf', 'Martin\u2019s Corner', 'Ritz Classic'],
+            food: ['Goan Fish Curry Rice', 'Prawn Balchao', 'Bebinca', 'Pork Vindaloo', 'Goan Chorizo & Feni']
         },
         'Indore': {
             hotels: ['Indore Marriott', 'Sayaji Hotel', 'Radisson Blu', 'Sheraton Grand Palace', 'Fairfield by Marriott'],
-            places: ['Rajwada Palace', 'Khajrana Ganesh Mandir', 'Lal Bagh Palace', 'Patalpani Waterfall', 'Central Museum'],
-            restaurants: ['Shreemaya Celebrity', 'Nakhrali Dhani', 'Kebabsville', 'Little Monk', 'The Waterfall'],
-            food: ['Poha-Jalebi', 'Dahi Bada', 'Dal Bafla', 'Bhutte ka Kees', 'Mawa Bati']
+            places: ['Rajwada Palace', 'Khajrana Ganesh Mandir', 'Lal Bagh Palace', 'Patalpani Waterfall', 'Bada Ganpati Temple'],
+            restaurants: ['Joshi Dahi Bada House (Sarafa)', 'Vijay Chaat House', 'Johny Hot Dog (Sarafa)', 'Shreemaya Celebrity', 'Nakhrali Dhani'],
+            food: ['Poha-Jalebi', 'Dahi Bada', 'Dal Bafla', 'Bhutte ka Kees', 'Khopra Patties']
         },
         'Ratlam': {
             hotels: ['Hotel Samta Sagar Palace', 'Lavanya Palace', 'Balaji Central', 'Ajanta Palace', 'Rudra Palace'],
             places: ['Shree Mahalakshmi Temple', 'Isarthuni Waterfall', 'Shiva Valley', 'Kalika Mata Mandir', 'Mangalay Temple'],
-            restaurants: ['Rajbhog', 'Vyas Dal Bhatti', 'Swad Exotica', 'Terrace Treat', 'Larelappa Restaurant'],
-            food: ['Ratlami Poha', 'Ratlami Sev', 'Dal Bafla', 'Sabudana Khichdi', 'Kesar Chai']
+            restaurants: ['Rajbhog', 'Vyas Dal Bhatti', 'Swad Exotica', 'Terrace Treat', 'Station Road chaat stalls'],
+            food: ['Ratlami Sev', 'Ratlami Poha', 'Laung Sev', 'Khasta Kachori', 'Sweet Mathri']
         },
         'Jaipur': {
             hotels: ['Rambagh Palace', 'Trident Jaipur', 'ITC Rajputana', 'Hilton Jaipur', 'Zostel Jaipur'],
@@ -1042,6 +1042,11 @@
         return Object.keys(GUIDES);
     }
 
+    /* merge extra guide packs (guides2.js) into the main set */
+    function addGuides(extra) {
+        for (var k in extra) if (extra.hasOwnProperty(k)) GUIDES[k] = extra[k];
+    }
+
     /* ---------------- export ---------------- */
     window.UniTravelsData = {
         getCities: getCities,
@@ -1067,6 +1072,7 @@
         getCarsForRoute: getCarsForRoute,
         getGuide: getGuide,
         guideCities: guideCities,
+        addGuides: addGuides,
         DAY_NAMES: DAY_NAMES
     };
 })();

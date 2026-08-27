@@ -994,6 +994,17 @@ td:first-child { font-weight: 700; color: var(--blue-900); }
     font-size: 1.05em;
 }
 
+/* place names are clickable photo links */
+.placeLink {
+    color: inherit;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.15s;
+}
+.placeLink:hover { color: var(--indigo); text-decoration: underline; }
+.placeLink .cam { font-size: 0.8em; opacity: 0.55; margin-left: 2px; }
+.placeLink:hover .cam { opacity: 1; }
+
 .section-title {
     font-size: 19px;
     font-weight: 800;

@@ -73,11 +73,20 @@
     }
     window.search = search;
 
-    function card(icon, cls, title, items) {
+    function card(icon, cls, title, items, city) {
+        var lis = items.map(function (x) {
+            if (cls === 'g-places' && city) {
+                var q = encodeURIComponent(x + ' ' + city + ' India');
+                return '<li><a class="placeLink" target="_blank" rel="noopener" ' +
+                    'href="https://www.google.com/search?tbm=isch&q=' + q + '" ' +
+                    'title="Photos: ' + x + '">' + x + ' <span class="cam">📷</span></a></li>';
+            }
+            return '<li>' + x + '</li>';
+        }).join('');
         return '<div class="guideCard ' + cls + '">' +
             '<div class="guideHead"><span class="guideIcon">' + icon + '</span>' +
             '<span class="guideTitle">' + title + '</span></div>' +
-            '<ul>' + items.map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ul>' +
+            '<ul>' + lis + '</ul>' +
             '</div>';
     }
 
@@ -103,7 +112,7 @@
         grid.className = 'guideGrid';
         grid.innerHTML =
             card('🏨', 'g-hotels', 'Best Hotels in ' + to.name, g.hotels) +
-            card('📍', 'g-places', 'Best Places in ' + to.name, g.places) +
+            card('📍', 'g-places', 'Best Places in ' + to.name, g.places, to.name) +
             card('🍽️', 'g-resto', 'Best Restaurants in ' + to.name, g.restaurants) +
             card('🍛', 'g-food', 'Must-Try Food of ' + to.name, g.food);
         area.appendChild(grid);
