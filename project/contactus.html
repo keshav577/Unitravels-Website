@@ -4,7 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UniTravels</title>
-    <link rel="stylesheet" href="styles.css"> <!-- Link to your CSS file -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <link rel="stylesheet" href="styles.css?v=6">
 </head>
 <body>
     <header>
@@ -18,6 +21,9 @@
     </header>
     <div class="main">
         <h1>Contact Us</h1>
+        <p style="text-align:center; margin-bottom:20px;">
+            📞 +91 98765 43210 &nbsp;|&nbsp; ✉️ <a href="mailto:support@unitravels.com">support@unitravels.com</a> &nbsp;|&nbsp; 📍 Indore, Madhya Pradesh, India
+        </p>
         <div class="form">
             <label for="name">Name:</label>
             <input type="text" id="name" name="name" required>
@@ -33,19 +39,36 @@
         </div>
     </div>
     <footer>
-        <p>&copy; 2024 My Website</p>
+        <p>&copy; 2026 UniTravels. All Rights Reserved.</p>
     </footer>
     <script>
         function Submit() {
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const message = document.getElementById('message').value.trim();
             const SubmitMsg = document.getElementById('SubmitMessage');
 
-            if (!name || !email ) {
-                SubmitMsg.textContent = "Please fill the details";
-            } else {
-                SubmitMsg.textContent = "Submit Successfully";
+            if (!name || !email || !message) {
+                SubmitMsg.textContent = "Please fill in all the details.";
+                SubmitMsg.style.color = "red";
+                return;
             }
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                SubmitMsg.textContent = "Please enter a valid email address.";
+                SubmitMsg.style.color = "red";
+                return;
+            }
+
+            /* keep a copy of the message locally so nothing is lost */
+            const inbox = JSON.parse(localStorage.getItem('unitravels_messages') || '[]');
+            inbox.unshift({ name, email, message, at: new Date().toISOString() });
+            localStorage.setItem('unitravels_messages', JSON.stringify(inbox));
+
+            SubmitMsg.textContent = "✅ Thanks " + name + "! Your message has been sent — we'll reply to " + email + " soon.";
+            SubmitMsg.style.color = "green";
+            document.getElementById('name').value = '';
+            document.getElementById('email').value = '';
+            document.getElementById('message').value = '';
         }
     </script>
 </body>

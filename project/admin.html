@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | UniTravels</title>
+    <meta name="description" content="UniTravels admin dashboard — add buses, routes and cities.">
+    <link rel="icon" type="image/jpeg" href="bus.jpg?v=6">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <link rel="stylesheet" href="style.css?v=6">
+</head>
+<body data-dynamic="admin">
+    <header>
+        <img src="bus.jpg" alt="logo" height="140" width="150">
+        <div id="logo">
+            <h1>UniTravels</h1>
+            <nav>
+                <a href="bus.html">Home</a>
+                <a href="aboutus.html">AboutUs</a>
+                <a href="contactus.html">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="side">
+        <a href="bus.html"><button id="box1">
+            <img src="bus.jpg" alt="" height="100" width="100">
+            <span><b>Bus Travel</b></span>
+        </button></a>
+        <a href="train.html"><button id="box2">
+            <img src="train.jpg" alt="" height="100" width="100">
+            <span><b>Train Travel</b></span>
+        </button></a>
+        <a href="car.html"><button id="box3">
+            <img src="car.jpg" alt="" height="100" width="100">
+            <span><b>Car Travel</b></span>
+        </button></a>
+        <a href="ideaaboutplaces.html"><button id="box4">
+            <img src="idea.jpg" alt="" height="100" width="100">
+            <span><b>Idea of Place</b></span>
+        </button></a>
+    </div>
+
+    <!-- ============ admin login gate ============ -->
+    <div id="web" class="adminLoginCard" style="display:none;">
+        <h2 class="searchTitle">🛠 Admin Login</h2>
+        <p class="searchSub">Sign in to manage buses, routes and cities</p>
+        <div class="place">
+            <div class="field">
+                <label for="adminUser">Username</label>
+                <input type="text" id="adminUser" placeholder="admin">
+            </div>
+            <div class="field">
+                <label for="adminPass">Password</label>
+                <input type="password" id="adminPass" placeholder="••••••••">
+            </div>
+        </div>
+        <div class="Search">
+            <button id="adminLoginBtn">🔓 Login</button>
+        </div>
+        <p id="adminMsg"></p>
+        <p class="hint">Demo credentials — user: <b>admin</b> • password: <b>admin123</b></p>
+    </div>
+
+    <!-- ============ admin dashboard ============ -->
+    <div id="adminDash" style="display:none;">
+        <div class="adminTopBar">
+            <h2>🛠 Admin Dashboard</h2>
+            <button id="adminLogoutBtn" class="ghostBtn">Logout</button>
+        </div>
+
+        <div class="statsGrid">
+            <div class="statCard"><div class="statNum" id="statCities">0</div><div class="statLabel">🌆 Cities in network</div></div>
+            <div class="statCard"><div class="statNum" id="statBuses">0</div><div class="statLabel">🚌 Custom buses added</div></div>
+            <div class="statCard"><div class="statNum" id="statOperators">0</div><div class="statLabel">🏢 Partner operators</div></div>
+            <div class="statCard"><div class="statNum" id="statBookings">0</div><div class="statLabel">🎫 Bookings (this browser)</div></div>
+        </div>
+
+        <!-- add bus -->
+        <div id="web1" class="adminFormCard">
+            <h3>➕ Add a New Bus</h3>
+            <div class="adminGrid">
+                <div class="field"><label for="bFrom">From</label><input id="bFrom" list="cityList" placeholder="Origin city" autocomplete="off"></div>
+                <div class="field"><label for="bTo">To</label><input id="bTo" list="cityList" placeholder="Destination city" autocomplete="off"></div>
+                <div class="field"><label for="bOperator">Operator</label><input id="bOperator" list="opList" placeholder="e.g. VRL Travels" autocomplete="off"></div>
+                <div class="field"><label for="bType">Bus Type</label>
+                    <select id="bType">
+                        <option>Non AC Seater</option>
+                        <option>Non AC Sleeper</option>
+                        <option>AC Seater</option>
+                        <option selected>AC Sleeper</option>
+                        <option>Volvo AC Seater</option>
+                        <option>Volvo AC Sleeper</option>
+                        <option>Luxury AC Sleeper</option>
+                    </select>
+                </div>
+                <div class="field"><label for="bDeparture">Departure</label><input type="time" id="bDeparture" value="21:30"></div>
+                <div class="field"><label for="bDurH">Duration</label>
+                    <span class="durPair">
+                        <input type="number" id="bDurH" min="0" max="72" value="12" title="hours"> h
+                        <input type="number" id="bDurM" min="0" max="59" value="30" title="minutes"> m
+                    </span>
+                </div>
+                <div class="field"><label for="bFare">Fare (₹ per seat)</label><input type="number" id="bFare" min="50" value="999"></div>
+                <div class="field"><label for="bSeats">Total Seats</label><input type="number" id="bSeats" min="1" max="60" value="36"></div>
+                <div class="field"><label for="bRating">Rating (1–5)</label><input type="number" id="bRating" min="1" max="5" step="0.1" value="4.3"></div>
+                <div class="field"><label for="bBoarding">Boarding Point</label><input type="text" id="bBoarding" placeholder="e.g. ISBT Kashmiri Gate"></div>
+                <div class="field"><label for="bDrop">Drop Point</label><input type="text" id="bDrop" placeholder="e.g. Central Bus Stand"></div>
+            </div>
+            <div class="Search">
+                <button id="addBusBtn">💾 Save Bus</button>
+            </div>
+            <p id="busFormMsg"></p>
+        </div>
+
+        <!-- added buses -->
+        <div id="bavail" style="display:block;">
+            <h3 style="text-align:center; margin-bottom:10px;">🗂️ Custom Buses (shown in search results)</h3>
+            <p id="noBuses" style="text-align:center;">No custom buses yet — add your first one above! ⬆️</p>
+            <table id="adminBusTable" style="display:none;">
+                <thead>
+                    <tr>
+                        <th>Route</th><th>Operator</th><th>Type</th><th>Departure</th>
+                        <th>Duration</th><th>Fare</th><th>Seats</th><th>Rating</th><th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="adminBusBody"></tbody>
+            </table>
+        </div>
+
+        <!-- add city -->
+        <div id="web1x" class="adminFormCard cityFormCard">
+            <h3>🌆 Add a New City</h3>
+            <div class="adminGrid">
+                <div class="field"><label for="cName">City Name</label><input type="text" id="cName" placeholder="e.g. Jodhpur"></div>
+                <div class="field"><label for="cState">State</label><input type="text" id="cState" placeholder="e.g. Rajasthan"></div>
+                <div class="field"><label for="cLat">Latitude</label><input type="number" id="cLat" step="0.01" value="26.24"></div>
+                <div class="field"><label for="cLon">Longitude</label><input type="number" id="cLon" step="0.01" value="73.02"></div>
+            </div>
+            <div class="Search">
+                <button id="addCityBtn">💾 Save City</button>
+            </div>
+            <p id="cityFormMsg"></p>
+            <table id="adminCityTable" style="display:none; margin-top:16px;">
+                <thead><tr><th>City</th><th>State</th><th>Lat</th><th>Lon</th><th>Action</th></tr></thead>
+                <tbody id="adminCityBody"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <datalist id="cityList"></datalist>
+    <datalist id="opList"></datalist>
+
+    <script src="data.js?v=6"></script>
+    <script src="app.js?v=6"></script>
+    <script>
+        (function () {
+            'use strict';
+            var DATA = window.UniTravelsData;
+            var UT = window.UniTravels;
+            var ADMIN_USER = 'admin', ADMIN_PASS = 'admin123';
+
+            var loginCard = document.getElementById('adminLoginCard') || document.querySelector('.adminLoginCard');
+            var dash = document.getElementById('adminDash');
+
+            function isAdmin() { return sessionStorage.getItem('isAdmin') === 'true'; }
+
+            /* ---------- datalists ---------- */
+            function fillLists() {
+                var dl = document.getElementById('cityList');
+                dl.innerHTML = '';
+                DATA.getCities().forEach(function (c) {
+                    var o = document.createElement('option');
+                    o.value = c.name;
+                    o.textContent = c.name + ' — ' + c.state;
+                    dl.appendChild(o);
+                });
+                var ol = document.getElementById('opList');
+                ol.innerHTML = '';
+                DATA.OPERATORS.forEach(function (op) {
+                    var o = document.createElement('option');
+                    o.value = op.name;
+                    ol.appendChild(o);
+                });
+            }
+
+            /* ---------- stats ---------- */
+            function renderStats() {
+                document.getElementById('statCities').textContent = DATA.getCities().length;
+                document.getElementById('statBuses').textContent = DATA.getAdminBuses().length;
+                var ops = {};
+                DATA.OPERATORS.forEach(function (o) { ops[o.name] = 1; });
+                DATA.getAdminBuses().forEach(function (b) { ops[b.operator] = 1; });
+                document.getElementById('statOperators').textContent = Object.keys(ops).length;
+                document.getElementById('statBookings').textContent = UT.getBookings().length;
+            }
+
+            /* ---------- admin buses table ---------- */
+            function renderBuses() {
+                var buses = DATA.getAdminBuses();
+                var body = document.getElementById('adminBusBody');
+                var table = document.getElementById('adminBusTable');
+                var none = document.getElementById('noBuses');
+                body.innerHTML = '';
+                if (!buses.length) { table.style.display = 'none'; none.style.display = 'block'; return; }
+                table.style.display = 'table';
+                none.style.display = 'none';
+                buses.forEach(function (b) {
+                    var tr = document.createElement('tr');
+                    tr.innerHTML =
+                        '<td>' + b.from + ' → ' + b.to + '</td>' +
+                        '<td>' + b.operator + '</td>' +
+                        '<td>' + b.type + '</td>' +
+                        '<td>' + b.departure + '</td>' +
+                        '<td>' + DATA.fmtDur(b.durationMin) + '</td>' +
+                        '<td>₹ ' + Number(b.fare).toLocaleString('en-IN') + '</td>' +
+                        '<td>' + b.seats + '</td>' +
+                        '<td>★ ' + Number(b.rating).toFixed(1) + '</td>';
+                    var td = document.createElement('td');
+                    var del = document.createElement('button');
+                    del.textContent = '🗑 Delete';
+                    del.addEventListener('click', function () {
+                        if (!confirm('Delete this bus?')) return;
+                        var list = DATA.getAdminBuses().filter(function (x) { return x.id !== b.id; });
+                        DATA.saveAdminBuses(list);
+                        renderBuses();
+                        renderStats();
+                    });
+                    td.appendChild(del);
+                    tr.appendChild(td);
+                    body.appendChild(tr);
+                });
+            }
+
+            /* ---------- admin cities table ---------- */
+            function renderCities() {
+                var cities = DATA.getAdminCities();
+                var body = document.getElementById('adminCityBody');
+                var table = document.getElementById('adminCityTable');
+                body.innerHTML = '';
+                if (!cities.length) { table.style.display = 'none'; return; }
+                table.style.display = 'table';
+                cities.forEach(function (c) {
+                    var tr = document.createElement('tr');
+                    tr.innerHTML = '<td>' + c.name + '</td><td>' + c.state + '</td><td>' + c.lat + '</td><td>' + c.lon + '</td>';
+                    var td = document.createElement('td');
+                    var del = document.createElement('button');
+                    del.textContent = '🗑 Delete';
+                    del.addEventListener('click', function () {
+                        if (!confirm('Delete city ' + c.name + '?')) return;
+                        DATA.saveAdminCities(DATA.getAdminCities().filter(function (x) { return x.name !== c.name; }));
+                        renderCities();
+                        renderStats();
+                        fillLists();
+                    });
+                    td.appendChild(del);
+                    tr.appendChild(td);
+                    body.appendChild(tr);
+                });
+            }
+
+            /* ---------- add bus ---------- */
+            document.getElementById('addBusBtn').addEventListener('click', function () {
+                var msg = document.getElementById('busFormMsg');
+                msg.style.color = '#d93025';
+
+                var from = DATA.findCity(document.getElementById('bFrom').value);
+                var to = DATA.findCity(document.getElementById('bTo').value);
+                var operator = document.getElementById('bOperator').value.trim();
+                var departure = document.getElementById('bDeparture').value;
+                var h = parseInt(document.getElementById('bDurH').value, 10) || 0;
+                var m = parseInt(document.getElementById('bDurM').value, 10) || 0;
+                var fare = parseFloat(document.getElementById('bFare').value);
+                var seats = parseInt(document.getElementById('bSeats').value, 10);
+                var rating = parseFloat(document.getElementById('bRating').value);
+
+                if (!from || !to) { msg.textContent = '⚠️ Please choose valid origin and destination cities.'; return; }
+                if (from.name.toLowerCase() === to.name.toLowerCase()) { msg.textContent = '⚠️ Origin and destination cannot be the same.'; return; }
+                if (!operator) { msg.textContent = '⚠️ Please enter the operator name.'; return; }
+                if (!departure) { msg.textContent = '⚠️ Please pick a departure time.'; return; }
+                if (h * 60 + m < 20) { msg.textContent = '⚠️ Duration looks too short.'; return; }
+                if (!(fare > 0) || !(seats > 0) || !(rating >= 1 && rating <= 5)) { msg.textContent = '⚠️ Please check fare, seats and rating.'; return; }
+
+                var list = DATA.getAdminBuses();
+                list.push({
+                    id: 'CB' + Date.now().toString(36).toUpperCase(),
+                    from: from.name,
+                    to: to.name,
+                    operator: operator,
+                    type: document.getElementById('bType').value,
+                    departure: departure,
+                    durationMin: h * 60 + m,
+                    fare: Math.round(fare),
+                    seats: seats,
+                    rating: Math.round(rating * 10) / 10,
+                    boarding: document.getElementById('bBoarding').value.trim(),
+                    drop: document.getElementById('bDrop').value.trim()
+                });
+                DATA.saveAdminBuses(list);
+                msg.style.color = '#0a8f4d';
+                msg.textContent = '✅ Bus added! It now appears in ' + from.name + ' → ' + to.name + ' search results.';
+                renderBuses();
+                renderStats();
+            });
+
+            /* ---------- add city ---------- */
+            document.getElementById('addCityBtn').addEventListener('click', function () {
+                var msg = document.getElementById('cityFormMsg');
+                msg.style.color = '#d93025';
+                var name = document.getElementById('cName').value.trim();
+                var state = document.getElementById('cState').value.trim();
+                var lat = parseFloat(document.getElementById('cLat').value);
+                var lon = parseFloat(document.getElementById('cLon').value);
+
+                if (!name || !state) { msg.textContent = '⚠️ Please enter city name and state.'; return; }
+                if (isNaN(lat) || isNaN(lon) || Math.abs(lat) > 90 || Math.abs(lon) > 180) { msg.textContent = '⚠️ Please enter valid coordinates.'; return; }
+                if (DATA.findCity(name)) { msg.textContent = '⚠️ That city already exists in the network.'; return; }
+
+                var list = DATA.getAdminCities();
+                list.push({ name: name, state: state, lat: lat, lon: lon });
+                DATA.saveAdminCities(list);
+                msg.style.color = '#0a8f4d';
+                msg.textContent = '✅ City added! It is now bookable from the bus search.';
+                renderCities();
+                renderStats();
+                fillLists();
+                document.getElementById('cName').value = '';
+                document.getElementById('cState').value = '';
+            });
+
+            /* ---------- login gate ---------- */
+            function showDash() {
+                loginCard.style.display = 'none';
+                dash.style.display = 'block';
+                fillLists();
+                renderStats();
+                renderBuses();
+                renderCities();
+            }
+
+            document.getElementById('adminLoginBtn').addEventListener('click', function () {
+                var u = document.getElementById('adminUser').value.trim();
+                var p = document.getElementById('adminPass').value;
+                var msg = document.getElementById('adminMsg');
+                if (u === ADMIN_USER && p === ADMIN_PASS) {
+                    sessionStorage.setItem('isAdmin', 'true');
+                    showDash();
+                } else {
+                    msg.textContent = '❌ Invalid admin credentials.';
+                    msg.style.color = '#d93025';
+                }
+            });
+            document.getElementById('adminPass').addEventListener('keydown', function (e) {
+                if (e.key === 'Enter') document.getElementById('adminLoginBtn').click();
+            });
+            document.getElementById('adminLogoutBtn').addEventListener('click', function () {
+                sessionStorage.removeItem('isAdmin');
+                dash.style.display = 'none';
+                loginCard.style.display = 'block';
+            });
+
+            if (isAdmin()) showDash();
+            else loginCard.style.display = 'block';
+        })();
+    </script>
+</body>
+</html>
