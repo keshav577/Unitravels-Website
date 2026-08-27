@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Bookings | UniTravels</title>
+    <meta name="description" content="Manage your UniTravels bus, train and car bookings.">
+    <link rel="icon" type="image/jpeg" href="bus.jpg?v=7">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <link rel="stylesheet" href="style.css?v=7">
+</head>
+<body data-dynamic="bookings">
+    <header>
+        <img src="bus.jpg" alt="logo" height="140" width="150">
+        <div id="logo">
+            <h1>UniTravels</h1>
+            <a href="bus.html">Home</a>
+            <a href="aboutus.html">AboutUs</a>
+            <a href="contactus.html">ContactUs</a>
+        </div>
+    </header>
+    <div class="side">
+        <a href="bus.html"><button id="box1">
+            <img src="bus.jpg" alt="" height="100" width="100">
+            <span><b>Bus Travel</b></span>
+        </button></a>
+        <a href="train.html"><button id="box2">
+            <img src="train.jpg" alt="" height="100" width="100">
+            <span><b>Train Travel</b></span>
+        </button></a>
+        <a href="car.html"><button id="box3">
+            <img src="car.jpg" alt="" height="100" width="100">
+            <span><b>Car Travel</b></span>
+        </button></a>
+        <a href="ideaaboutplaces.html"><button id="box4">
+            <img src="idea.jpg" alt="" height="100" width="100">
+            <span><b>Idea of Place</b></span>
+        </button></a>
+    </div>
+
+    <!-- shown when logged out -->
+    <div id="web1" style="display:none; text-align:center;">
+        <h3>🔐 Login to see your trips</h3><br>
+        <p>Your bookings are saved to your UniTravels account.</p><br>
+        <div class="Search"><button id="goLogin">Go to Login</button></div>
+    </div>
+
+    <!-- shown when logged in -->
+    <div id="bavail" style="display:none;">
+        <p id="bkBanner" style="display:none; text-align:center; font-size:1.2em; color:green; margin-bottom:15px;"></p>
+        <h3 id="bkHeading" style="text-align:center; margin-bottom:10px;">🧳 My Bookings</h3>
+        <p id="bkEmpty" style="display:none; text-align:center; padding:20px;">
+            You have no bookings yet. Time to plan a trip! 🌍
+        </p>
+        <table id="bkTable" style="display:none;">
+            <thead>
+                <tr>
+                    <th>Booking ID</th>
+                    <th>Trip</th>
+                    <th>Departure</th>
+                    <th>Date</th>
+                    <th>Passenger</th>
+                    <th>Seats</th>
+                    <th>Total Fare</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="bkBody"></tbody>
+        </table>
+        <div class="Search" style="margin-top:10px;">
+            <button id="newTrip">➕ Book a New Trip</button>
+        </div>
+    </div>
+
+    <script src="app.js?v=7"></script>
+    <script>
+        (function () {
+            var UT = window.UniTravels;
+            var card = document.getElementById('web1');
+            var panel = document.getElementById('bavail');
+
+            document.getElementById('goLogin').addEventListener('click', function () {
+                location.href = 'Login.html?next=bookings';
+            });
+            document.getElementById('newTrip').addEventListener('click', function () {
+                location.href = 'bus.html';
+            });
+
+            if (!UT.isLoggedIn()) {
+                card.style.display = 'block';
+                return;
+            }
+            panel.style.display = 'block';
+
+            /* success banner after a fresh booking */
+            var bookedId = new URLSearchParams(location.search).get('booked');
+            if (bookedId) {
+                var banner = document.getElementById('bkBanner');
+                banner.textContent = '🎉 Booking ' + bookedId + ' confirmed! Have a great journey.';
+                banner.style.display = 'block';
+            }
+
+            function departureOf(b) {
+                /* dynamic bus bookings store departure directly */
+                if (b.departure) return b.departure;
+                /* static train/car rows: find the cell that looks like a time */
+                for (var i = 0; i < (b.cells || []).length; i++) {
+                    if (/^\d{1,2}:\d{2}/.test(b.cells[i])) return b.cells[i];
+                }
+                return '—';
+            }
+
+            function render() {
+                var mine = UT.getBookings().filter(function (b) {
+                    return b.user === UT.getUser().name;
+                });
+                var body = document.getElementById('bkBody');
+                var table = document.getElementById('bkTable');
+                var empty = document.getElementById('bkEmpty');
+                body.innerHTML = '';
+
+                if (!mine.length) {
+                    table.style.display = 'none';
+                    empty.style.display = 'block';
+                    return;
+                }
+                table.style.display = 'table';
+                empty.style.display = 'none';
+
+                document.getElementById('bkHeading').textContent =
+                    '🧳 My Bookings (' + mine.length + ')';
+
+                mine.forEach(function (b) {
+                    var tr = document.createElement('tr');
+
+                    var tdId = document.createElement('td');
+                    tdId.textContent = b.id;
+
+                    var tdTrip = document.createElement('td');
+                    tdTrip.innerHTML = '<b>' + (b.icon || '') + ' ' + (b.operator || b.mode) + '</b><br>' +
+                        b.from + ' → ' + b.to;
+
+                    var tdDep = document.createElement('td');
+                    tdDep.textContent = departureOf(b);
+
+                    var tdDate = document.createElement('td');
+                    tdDate.textContent = UT.niceDate(b.date);
+
+                    var tdPax = document.createElement('td');
+                    tdPax.textContent = b.passenger;
+
+                    var tdSeats = document.createElement('td');
+                    tdSeats.textContent = b.seats;
+
+                    var tdFare = document.createElement('td');
+                    tdFare.textContent = 'INR ' + Number(b.total).toLocaleString('en-IN');
+
+                    var tdStatus = document.createElement('td');
+                    tdStatus.textContent = b.status === 'Confirmed' ? '✅ Confirmed' : '❌ Cancelled';
+
+                    var tdAction = document.createElement('td');
+                    if (b.status === 'Confirmed') {
+                        var cancel = document.createElement('button');
+                        cancel.textContent = 'Cancel';
+                        cancel.addEventListener('click', function () {
+                            if (!confirm('Cancel booking ' + b.id + '?')) return;
+                            var all = UT.getBookings();
+                            for (var i = 0; i < all.length; i++) {
+                                if (all[i].id === b.id) { all[i].status = 'Cancelled'; break; }
+                            }
+                            UT.saveBookings(all);
+                            render();
+                        });
+                        tdAction.appendChild(cancel);
+                    } else {
+                        tdAction.textContent = '—';
+                    }
+
+                    tr.appendChild(tdId);
+                    tr.appendChild(tdTrip);
+                    tr.appendChild(tdDep);
+                    tr.appendChild(tdDate);
+                    tr.appendChild(tdPax);
+                    tr.appendChild(tdSeats);
+                    tr.appendChild(tdFare);
+                    tr.appendChild(tdStatus);
+                    tr.appendChild(tdAction);
+                    body.appendChild(tr);
+                });
+            }
+
+            render();
+        })();
+    </script>
+</body>
+</html>

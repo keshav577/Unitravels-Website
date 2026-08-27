@@ -3,65 +3,91 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unitravels</title>
+    <title>Login | UniTravels</title>
+    <link rel="icon" type="image/jpeg" href="bus.jpg">
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
         body {
-            font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-            background-image: url('https://img.freepik.com/free-vector/blue-curve-background_53876-113112.jpg');
-            background-size: cover;
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+            background: linear-gradient(120deg, #08214d, #0a2e6e 55%, #1a5cff);
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
             margin: 0;
-            
+            padding: 20px;
         }
-        .container{
-            background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREujJwyaMGywC403E0bvRW7gD69ES7GLysDQ&s');
-            border: solid;
+        .container {
+            background: rgba(255, 255, 255, 0.97);
             align-items: center;
             text-align: center;
-            padding: 10px;
-            width: 350px;
-            height: 300px;  
-            border-radius: 20px;
-            border-color:white; 
-            box-shadow: 10px 10px 20px 1px;
+            padding: 30px 24px;
+            width: 370px;
+            border-radius: 22px;
+            box-shadow: 0 24px 60px rgba(3, 15, 40, 0.45);
         }
-        input{
-            width: 80%;
-            padding: 8px;
+        .container h1 {
+            color: #08214d;
+            font-size: 1.5em;
+            margin: 0 0 4px;
+            letter-spacing: 0.4px;
+        }
+        .container .brand {
+            font-size: 2em;
+            margin-bottom: 6px;
+        }
+        input {
+            width: 100%;
+            padding: 12px 14px;
             margin: 8px 0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
+            border: 1.5px solid #cfd9ea;
+            border-radius: 12px;
+            font-size: 1em;
+            background: #fbfcfe;
+            box-sizing: border-box;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        input:focus {
+            outline: none;
+            border-color: #1a5cff;
+            box-shadow: 0 0 0 4px rgba(26, 92, 255, 0.12);
         }
         button {
-            width: 84%;
-            padding: 8px;
-            background-color: #007BFF;
+            width: 100%;
+            padding: 13px;
+            background: linear-gradient(120deg, #1a5cff, #4b83ff);
             color: white;
             border: none;
-            border-radius: 5px;
-            margin: 12px 0 0 0;
+            border-radius: 12px;
+            margin: 14px 0 0 0;
+            font-size: 1.02em;
+            font-weight: 700;
             cursor: pointer;
+            box-shadow: 0 8px 20px rgba(26, 92, 255, 0.35);
+            transition: filter 0.2s, transform 0.15s;
         }
-        button:hover {
-            background-color: #0056b3;
-        }
-
+        button:hover { filter: brightness(1.06); transform: translateY(-1px); }
+        #loginMessage { font-weight: 600; margin-top: 12px; font-size: 0.95em; }
+        .signup-link p, .login p { margin-top: 14px; font-size: 0.95em; color: #475569; }
+        a { color: #1a5cff; font-weight: 700; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        .backLink { display: block; margin-top: 10px; font-size: 0.88em; }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="Login">
-            <h1>LOGIN PAGE</h1>
+            <div class="brand">🚌</div>
+            <h1>Welcome back</h1>
+            <p style="color:#64748b; font-size:0.9em; margin-bottom:12px;">Login to UniTravels to manage your trips</p>
             <input type="text" id="name" placeholder="Enter your Name">
             <input type="password" id="password" placeholder="Enter your password">
-            <button onclick="login()" id="loginBtn">Login</button>
+            <button onclick="login()" id="loginBtn">🔓 Login</button>
             <p id="loginMessage"></p>
         </div>
-        <div class="signup-link"></div>
+        <div class="signup-link">
             <p>Don't have an account? <a href="signup.html">Sign up</a></p>
+            <a class="backLink" href="bus.html">← Back to search</a>
         </div>
     </div>
     <script>
@@ -78,15 +104,37 @@
             const user = users.find(user => user.name === name && user.password === password);
             if (user) {
                 loginMsg.textContent = "Login successful!";
+                loginMsg.style.color = "green";
                 isLoggedIn = true;
                 currentUser = user;
                 sessionStorage.setItem('isLoggedIn', JSON.stringify(isLoggedIn));
                 sessionStorage.setItem('currentUser', JSON.stringify(currentUser));
-                window.location.href = "bus.html";
+
+                /* finish a booking that was waiting for login */
+                const pending = JSON.parse(sessionStorage.getItem('pendingBooking') || 'null');
+                if (pending) {
+                    pending.user = user.name;
+                    const bookings = JSON.parse(localStorage.getItem('unitravels_bookings') || '[]');
+                    bookings.unshift(pending);
+                    localStorage.setItem('unitravels_bookings', JSON.stringify(bookings));
+                    sessionStorage.removeItem('pendingBooking');
+                    window.location.href = "bookings.html?booked=" + encodeURIComponent(pending.id);
+                    return;
+                }
+
+                /* go back where the user came from, if requested */
+                const next = new URLSearchParams(location.search).get('next');
+                window.location.href = next ? next + ".html" : "bus.html";
             } else {
                 loginMsg.textContent = "Incorrect username or password.";
+                loginMsg.style.color = "red";
             }
         }
+
+        /* Enter key submits the form */
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter') login();
+        });
     </script>    
 
     
