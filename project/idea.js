@@ -56,6 +56,23 @@
         });
     }
 
+    /* base guide + admin-added items */
+    function mergedGuide(name) {
+        var base = DATA.getGuide(name);
+        var custom = (DATA.getAdminGuides() || {})[name];
+        if (!base && !custom) return null;
+        var out = { hotels: [], places: [], restaurants: [], food: [] };
+        ['hotels', 'places', 'restaurants', 'food'].forEach(function (k) {
+            if (base && base[k]) out[k] = out[k].concat(base[k]);
+            if (custom && custom[k]) {
+                custom[k].forEach(function (item) {
+                    if (out[k].indexOf(item) === -1) out[k].push(item);
+                });
+            }
+        });
+        return out;
+    }
+
     /* ---------- search + render ---------- */
     function search() {
         msgEl.textContent = '';
@@ -64,7 +81,7 @@
         if (!toEl.value.trim()) { msgEl.textContent = 'Please select a destination city'; return; }
         if (!to) { msgEl.textContent = 'City ya station code sahi likhein — e.g. Jaipur / JP, Kolkata / HWH'; return; }
 
-        var guide = DATA.getGuide(to.name);
+        var guide = mergedGuide(to.name);
         if (!guide) {
             msgEl.textContent = '😕 ' + to.name + ' ka curated guide jald aa raha hai. Abhi in guides ko try karo: ' +
                 DATA.guideCities().slice(0, 8).join(', ') + '…';

@@ -280,6 +280,17 @@
     }
     function saveAdminBuses(list) { localStorage.setItem(ADMIN_BUS_KEY, JSON.stringify(list)); }
 
+    var ADMIN_GUIDE_KEY = 'unitravels_admin_guides';
+    var ADMIN_CAR_KEY = 'unitravels_admin_cars';
+    function getAdminGuides() {
+        try { return JSON.parse(localStorage.getItem(ADMIN_GUIDE_KEY)) || {}; } catch (e) { return {}; }
+    }
+    function saveAdminGuides(obj) { localStorage.setItem(ADMIN_GUIDE_KEY, JSON.stringify(obj)); }
+    function getAdminCars() {
+        try { return JSON.parse(localStorage.getItem(ADMIN_CAR_KEY)) || []; } catch (e) { return []; }
+    }
+    function saveAdminCars(list) { localStorage.setItem(ADMIN_CAR_KEY, JSON.stringify(list)); }
+
     function getCities() {
         var all = CITIES.concat(getAdminCities());
         return all.slice().sort(function (a, b) { return a.name.localeCompare(b.name); });
@@ -923,6 +934,24 @@
                 duration: fmtDur(durMin)
             };
         });
+
+        /* admin-added car models */
+        getAdminCars().forEach(function (m) {
+            var fare = Math.max(m.min || 900, Math.round((m.perKm * roadDist) / 10) * 10);
+            cars.push({
+                model: m.name,
+                cat: m.cat,
+                seats: m.seats,
+                perKm: m.perKm,
+                fuel: m.fuel || ['Petrol'],
+                fare: fare,
+                distanceKm: Math.round(roadDist),
+                durationMin: durMin,
+                duration: fmtDur(durMin),
+                custom: true
+            });
+        });
+
         return { cars: cars, roadKm: Math.round(roadDist) };
     }
 
@@ -1056,6 +1085,12 @@
         saveAdminBuses: saveAdminBuses,
         getAdminCities: getAdminCities,
         saveAdminCities: saveAdminCities,
+        getAdminGuides: getAdminGuides,
+        saveAdminGuides: saveAdminGuides,
+        getAdminCars: getAdminCars,
+        saveAdminCars: saveAdminCars,
+        ADMIN_GUIDE_KEY: ADMIN_GUIDE_KEY,
+        ADMIN_CAR_KEY: ADMIN_CAR_KEY,
         OPERATORS: OPERATORS,
         BUS_TYPES: BUS_TYPES,
         BOARDING: BOARDING,

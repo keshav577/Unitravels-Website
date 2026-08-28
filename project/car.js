@@ -173,7 +173,7 @@
 
         cars.forEach(function (c) {
             var card = document.createElement('div');
-            card.className = 'busCard carCard';
+            card.className = 'busCard carCard' + (c.custom ? ' customBus' : '');
 
             var fuelChips = c.fuel.map(function (f) {
                 return '<span class="amenity">' + (f === 'CNG' ? '🟢' : f === 'Diesel' ? '⛽' : '🔶') + ' ' + f + '</span>';
@@ -182,7 +182,7 @@
             var fare = fareFor(c);
             card.innerHTML =
                 '<div class="busLeft">' +
-                    '<div class="opName">' + c.model + '</div>' +
+                    '<div class="opName">' + c.model + (c.custom ? ' <span class="newTag">NEW</span>' : '') + '</div>' +
                     '<div class="busType">' + c.cat + '</div>' +
                     '<div class="metaRow"><span class="seatsChip">👥 ' + c.seats + ' seats</span></div>' +
                     '<div class="amenityRow">' + fuelChips +

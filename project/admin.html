@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard | UniTravels</title>
     <meta name="description" content="UniTravels admin dashboard — add buses, routes and cities.">
-    <link rel="icon" type="image/jpeg" href="bus.jpg?v=13">
+    <link rel="icon" type="image/jpeg" href="bus.jpg?v=14">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
-    <link rel="stylesheet" href="style.css?v=13">
+    <link rel="stylesheet" href="style.css?v=14">
 </head>
 <body data-dynamic="admin">
     <header>
@@ -76,6 +76,15 @@
             <div class="statCard"><div class="statNum" id="statBuses">0</div><div class="statLabel">🚌 Custom buses added</div></div>
             <div class="statCard"><div class="statNum" id="statOperators">0</div><div class="statLabel">🏢 Partner operators</div></div>
             <div class="statCard"><div class="statNum" id="statBookings">0</div><div class="statLabel">🎫 Bookings (this browser)</div></div>
+            <div class="statCard"><div class="statNum" id="statGuideItems">0</div><div class="statLabel">🗺️ Guide items added</div></div>
+            <div class="statCard"><div class="statNum" id="statCars">0</div><div class="statLabel">🚗 Custom cars added</div></div>
+        </div>
+
+        <!-- what do you want to add? forms generate per selection -->
+        <div class="adminTabs">
+            <button type="button" class="chipToggle adminTab active" data-tab="bus">🚌 Add Bus</button>
+            <button type="button" class="chipToggle adminTab" data-tab="place">🗺️ Add Place</button>
+            <button type="button" class="chipToggle adminTab" data-tab="car">🚗 Add Car</button>
         </div>
 
         <!-- add bus -->
@@ -130,6 +139,69 @@
             </table>
         </div>
 
+        <!-- add place / guide details (generated when 🗺️ tab selected) -->
+        <div id="placeCard" class="adminFormCard" style="display:none;">
+            <h3>🗺️ Add Place / Guide Details</h3>
+            <p class="hint">Ye items Idea of Place page ke guide cards mein turant dikhne lagenge (us browser mein).</p>
+            <div class="adminGrid">
+                <div class="field"><label for="gCity">City</label><input type="text" id="gCity" list="cityList" placeholder="e.g. Jodhpur" autocomplete="off"></div>
+                <div class="field"><label for="gCat">Category</label>
+                    <select id="gCat">
+                        <option value="places">📍 Places</option>
+                        <option value="hotels">🏨 Hotels</option>
+                        <option value="restaurants">🍽️ Restaurants</option>
+                        <option value="food">🍛 Food</option>
+                    </select>
+                </div>
+                <div class="field"><label for="gItem">Item name</label><input type="text" id="gItem" placeholder="e.g. Mehrangarh Fort / Gypsy Restaurant / Mirchi Bada"></div>
+            </div>
+            <div class="Search">
+                <button id="addGuideBtn">💾 Save to Guide</button>
+            </div>
+            <p id="guideFormMsg"></p>
+            <table id="adminGuideTable" style="display:none; margin-top:16px;">
+                <thead><tr><th>City</th><th>Category</th><th>Item</th><th>Action</th></tr></thead>
+                <tbody id="adminGuideBody"></tbody>
+            </table>
+        </div>
+
+        <!-- add car model (generated when 🚗 tab selected) -->
+        <div id="carCard" class="adminFormCard" style="display:none;">
+            <h3>🚗 Add a Car / Cab Model</h3>
+            <p class="hint">Custom car models Car Travel search results mein "NEW" tag ke saath dikhenge.</p>
+            <div class="adminGrid">
+                <div class="field"><label for="carName">Model name</label><input type="text" id="carName" placeholder="e.g. Honda City"></div>
+                <div class="field"><label for="carCat">Category</label>
+                    <select id="carCat">
+                        <option>Hatchback</option>
+                        <option selected>Sedan</option>
+                        <option>SUV · 6 seater</option>
+                        <option>Premium SUV</option>
+                        <option>Group Travel · 12 seater</option>
+                    </select>
+                </div>
+                <div class="field"><label for="carSeats">Seats</label><input type="number" id="carSeats" min="1" max="16" value="4"></div>
+                <div class="field"><label for="carPerKm">Rate (₹/km)</label><input type="number" id="carPerKm" min="5" step="0.5" value="15"></div>
+                <div class="field"><label for="carMin">Minimum fare (₹)</label><input type="number" id="carMin" min="100" step="50" value="1200"></div>
+                <div class="field"><label for="carFuel">Fuel</label>
+                    <select id="carFuel">
+                        <option>Petrol</option>
+                        <option>Diesel</option>
+                        <option>CNG</option>
+                        <option>Electric</option>
+                    </select>
+                </div>
+            </div>
+            <div class="Search">
+                <button id="addCarBtn">💾 Save Car</button>
+            </div>
+            <p id="carFormMsg"></p>
+            <table id="adminCarTable" style="display:none; margin-top:16px;">
+                <thead><tr><th>Model</th><th>Category</th><th>Seats</th><th>₹/km</th><th>Min fare</th><th>Fuel</th><th>Action</th></tr></thead>
+                <tbody id="adminCarBody"></tbody>
+            </table>
+        </div>
+
         <!-- add city -->
         <div id="web1x" class="adminFormCard cityFormCard">
             <h3>🌆 Add a New City</h3>
@@ -153,8 +225,8 @@
     <datalist id="cityList"></datalist>
     <datalist id="opList"></datalist>
 
-    <script src="data.js?v=13"></script>
-    <script src="app.js?v=13"></script>
+    <script src="data.js?v=14"></script>
+    <script src="app.js?v=14"></script>
     <script>
         (function () {
             'use strict';
@@ -360,6 +432,111 @@
                 dash.style.display = 'none';
                 loginCard.style.display = 'block';
             });
+
+            /* ---------- tabs: form generated per selection (bus / place / car) ---------- */
+            var placeCard = document.getElementById('placeCard');
+            var carCard = document.getElementById('carCard');
+            var busEls = [document.getElementById('web1'), document.getElementById('bavail')];
+            function showTab(tab) {
+                busEls.forEach(function (el) { el.style.display = (tab === 'bus') ? 'block' : 'none'; });
+                placeCard.style.display = (tab === 'place') ? 'block' : 'none';
+                carCard.style.display = (tab === 'car') ? 'block' : 'none';
+                Array.prototype.forEach.call(document.querySelectorAll('.adminTab'), function (b) {
+                    b.classList.toggle('active', b.getAttribute('data-tab') === tab);
+                });
+            }
+            Array.prototype.forEach.call(document.querySelectorAll('.adminTab'), function (b) {
+                b.addEventListener('click', function () { showTab(b.getAttribute('data-tab')); });
+            });
+
+            /* ---------- place / guide CRUD ---------- */
+            var CAT_LABEL = { places: '📍 Places', hotels: '🏨 Hotels', restaurants: '🍽️ Restaurants', food: '🍛 Food' };
+            function refreshGuideTable() {
+                var g = DATA.getAdminGuides();
+                var rows = [], total = 0;
+                Object.keys(g).sort().forEach(function (city) {
+                    ['places', 'hotels', 'restaurants', 'food'].forEach(function (cat) {
+                        (g[city][cat] || []).forEach(function (item, idx) {
+                            total++;
+                            rows.push('<tr><td>' + city + '</td><td>' + CAT_LABEL[cat] + '</td><td>' + item +
+                                '</td><td><button class="ghostBtn delGuide" data-city="' + city + '" data-cat="' + cat +
+                                '" data-idx="' + idx + '">🗑 Delete</button></td></tr>');
+                        });
+                    });
+                });
+                document.getElementById('statGuideItems').textContent = total;
+                var tbl = document.getElementById('adminGuideTable');
+                if (!rows.length) { tbl.style.display = 'none'; return; }
+                tbl.style.display = 'table';
+                var body = document.getElementById('adminGuideBody');
+                body.innerHTML = rows.join('');
+                Array.prototype.forEach.call(body.querySelectorAll('.delGuide'), function (btn) {
+                    btn.addEventListener('click', function () {
+                        var g2 = DATA.getAdminGuides();
+                        var arr = g2[btn.getAttribute('data-city')][btn.getAttribute('data-cat')];
+                        arr.splice(+btn.getAttribute('data-idx'), 1);
+                        DATA.saveAdminGuides(g2);
+                        refreshGuideTable();
+                    });
+                });
+            }
+            document.getElementById('addGuideBtn').addEventListener('click', function () {
+                var c = DATA.findCity(document.getElementById('gCity').value);
+                var item = document.getElementById('gItem').value.trim();
+                var msg = document.getElementById('guideFormMsg');
+                if (!c || !item) { msg.textContent = '❌ Network city aur item name dono likhein'; return; }
+                var cat = document.getElementById('gCat').value;
+                var g = DATA.getAdminGuides();
+                if (!g[c.name]) g[c.name] = { hotels: [], places: [], restaurants: [], food: [] };
+                if (!g[c.name][cat]) g[c.name][cat] = [];
+                if (g[c.name][cat].indexOf(item) === -1) g[c.name][cat].push(item);
+                DATA.saveAdminGuides(g);
+                msg.textContent = '✅ "' + item + '" → ' + c.name + ' guide (' + CAT_LABEL[cat] + ') mein add ho gaya';
+                document.getElementById('gItem').value = '';
+                refreshGuideTable();
+            });
+
+            /* ---------- car CRUD ---------- */
+            function refreshCarTable() {
+                var list = DATA.getAdminCars();
+                document.getElementById('statCars').textContent = list.length;
+                var tbl = document.getElementById('adminCarTable');
+                if (!list.length) { tbl.style.display = 'none'; return; }
+                tbl.style.display = 'table';
+                document.getElementById('adminCarBody').innerHTML = list.map(function (m, i) {
+                    return '<tr><td>' + m.name + '</td><td>' + m.cat + '</td><td>' + m.seats + '</td><td>₹' + m.perKm +
+                        '</td><td>₹' + m.min + '</td><td>' + (m.fuel || ['Petrol']).join(', ') +
+                        '</td><td><button class="ghostBtn delCar" data-idx="' + i + '">🗑 Delete</button></td></tr>';
+                }).join('');
+                Array.prototype.forEach.call(document.querySelectorAll('.delCar'), function (btn) {
+                    btn.addEventListener('click', function () {
+                        var l = DATA.getAdminCars();
+                        l.splice(+btn.getAttribute('data-idx'), 1);
+                        DATA.saveAdminCars(l);
+                        refreshCarTable();
+                    });
+                });
+            }
+            document.getElementById('addCarBtn').addEventListener('click', function () {
+                var name = document.getElementById('carName').value.trim();
+                var msg = document.getElementById('carFormMsg');
+                if (!name) { msg.textContent = '❌ Model name likhein'; return; }
+                var l = DATA.getAdminCars();
+                l.push({
+                    name: name,
+                    cat: document.getElementById('carCat').value,
+                    seats: +document.getElementById('carSeats').value || 4,
+                    perKm: +document.getElementById('carPerKm').value || 15,
+                    min: +document.getElementById('carMin').value || 1000,
+                    fuel: [document.getElementById('carFuel').value]
+                });
+                DATA.saveAdminCars(l);
+                msg.textContent = '✅ ' + name + ' save ho gaya — Car Travel results mein "NEW" tag ke saath dikhega';
+                document.getElementById('carName').value = '';
+                refreshCarTable();
+            });
+            refreshGuideTable();
+            refreshCarTable();
 
             if (isAdmin()) showDash();
             else loginCard.style.display = 'block';

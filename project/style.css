@@ -1042,6 +1042,34 @@ ul li::before {
 }
 
 /* ---------------- admin ---------------- */
+.adminTabs {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    max-width: 1080px;
+    margin: 18px auto 6px;
+    width: 94%;
+}
+
+.adminTab {
+    padding: 10px 22px;
+    font-size: 1em;
+    font-weight: 800;
+    font-family: var(--font-display);
+    background: #fff;
+    border: 1.5px solid var(--line);
+    color: var(--blue-700);
+    box-shadow: var(--shadow);
+}
+.adminTab:hover { background: var(--blue-50); transform: translateY(-2px); }
+.adminTab.active {
+    background: linear-gradient(120deg, var(--indigo), var(--blue-500));
+    color: #fff;
+    border-color: transparent;
+    box-shadow: 0 8px 20px -6px rgba(79, 70, 229, 0.55);
+}
+
 .adminTopBar {
     max-width: 1080px;
     margin: 22px auto 6px;
