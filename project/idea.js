@@ -32,12 +32,18 @@
         });
     }
 
-    /* ---------- popular guide chips ---------- */
+    /* ---------- popular guide chips (curated top destinations) ---------- */
+    var POPULAR_GUIDES = [
+        'Delhi', 'Mumbai', 'Goa', 'Jaipur', 'Agra', 'Varanasi',
+        'Amritsar', 'Udaipur', 'Kolkata', 'Chennai', 'Bengaluru',
+        'Hyderabad', 'Shimla', 'Manali', 'Darjeeling', 'Srinagar',
+        'Rishikesh', 'Kochi'
+    ];
     function fillPopular() {
         var box = document.getElementById('popularRoutes');
         if (!box) return;
         box.innerHTML = '<span class="popularLabel">🔥 Popular guides:</span>';
-        DATA.guideCities().forEach(function (city) {
+        POPULAR_GUIDES.forEach(function (city) {
             var chip = document.createElement('button');
             chip.type = 'button';
             chip.className = 'routeChip';
