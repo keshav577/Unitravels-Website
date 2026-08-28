@@ -270,7 +270,7 @@ select:focus-visible {
 .ghostBtn:hover { background: var(--blue-50); box-shadow: none; }
 
 /* ---------------- search card ---------------- */
-#web, #web1 {
+#web, #web1, #web1x {
     background:
         linear-gradient(#ffffff, #fdfeff) padding-box,
         linear-gradient(135deg, #c7d6ff, #ffffff 35%, #ffe1b0) border-box;
@@ -287,6 +287,8 @@ select:focus-visible {
 
 #web { width: min(960px, 94%); }
 #web1 { width: min(560px, 94%); padding: 28px 30px; }
+#web1x { width: min(1080px, 94%); padding: 28px 30px; }
+#web1x h3 { text-align: center; color: var(--blue-900); margin-bottom: 16px; }
 
 #web .Search, #web1 .Search { text-align: center; }
 
